@@ -15,7 +15,7 @@ public class Usuario {
 
   @Id
   @GeneratedValue(strategy=GenerationType.UUID)
-  private String id;
+  private String idUsuario;
   @Column(nullable = false)
   private String nome;
   @Column(nullable = false)
@@ -41,10 +41,10 @@ public class Usuario {
   private Date dataFim;
 
   public Usuario(){}
-  public Usuario(String id, String nome, String cpf, String email, String instituicao, String perfil, String matricula,
+  public Usuario(String idUsuario, String nome, String cpf, String email, String instituicao, String perfil, String matricula,
       String senha, String lattes, String linkedin, String telefone, String curso, String sobreVoce, String formacao,
       Date dataInicio, Date dataFim) {
-    this.id = id;
+    this.idUsuario = idUsuario;
     this.nome = nome;
     this.cpf = cpf;
     this.email = email;
@@ -61,11 +61,11 @@ public class Usuario {
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
   }
-  public String getId() {
-    return id;
+  public String getIdUsuario() {
+    return idUsuario;
   }
-  public void setId(String id) {
-    this.id = id;
+  public void setIdUsuario(String idUsuario) {
+    this.idUsuario = idUsuario;
   }
   public String getNome() {
     return nome;
