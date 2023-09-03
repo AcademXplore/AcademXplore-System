@@ -1,12 +1,17 @@
 package com.academxplore.academxplore.models;
 
 import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,7 +20,7 @@ public class Usuario {
 
   @Id
   @GeneratedValue(strategy=GenerationType.UUID)
-  private String idUsuario;
+  private String id;
   @Column(nullable = false)
   private String nome;
   @Column(nullable = false)
@@ -39,12 +44,29 @@ public class Usuario {
   private Date dataInicio;
   @Column(name = "data_fim")
   private Date dataFim;
-
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
+  private List<Projeto> projetosProfessor;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "coorientador")
+  private List<Projeto> projetosCoorientador;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
+  private List<Candidatura> candidaturas;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+  private List<Notificacao> notificacoes;
+  @OneToMany(cascade=CascadeType.ALL)
+  @JoinTable(
+    name = "usuario_equipe",
+    joinColumns = {@JoinColumn(name = "usuario_id", referencedColumnName="id")},
+    inverseJoinColumns = {@JoinColumn(name = "equipe_id", referencedColumnName = "id")}
+  )
+  private List<Equipe> equipes;
+ 
+  
+  
   public Usuario(){}
-  public Usuario(String idUsuario, String nome, String cpf, String email, String instituicao, String perfil, String matricula,
+  public Usuario(String id, String nome, String cpf, String email, String instituicao, String perfil, String matricula,
       String senha, String lattes, String linkedin, String telefone, String curso, String sobreVoce, String formacao,
       Date dataInicio, Date dataFim) {
-    this.idUsuario = idUsuario;
+    this.id = id;
     this.nome = nome;
     this.cpf = cpf;
     this.email = email;
@@ -61,11 +83,11 @@ public class Usuario {
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
   }
-  public String getIdUsuario() {
-    return idUsuario;
+  public String getId() {
+    return id;
   }
-  public void setIdUsuario(String idUsuario) {
-    this.idUsuario = idUsuario;
+  public void setId(String id) {
+    this.id = id;
   }
   public String getNome() {
     return nome;
@@ -156,5 +178,36 @@ public class Usuario {
   }
   public void setDataFim(Date dataFim) {
     this.dataFim = dataFim;
+  }
+  public List<Projeto> getProjetosProfessor() {
+    return projetosProfessor;
+  }
+  public void setProjetosProfessor(List<Projeto> projetosProfessor) {
+    this.projetosProfessor = projetosProfessor;
+  }
+   public List<Projeto> getProjetosCoorientador() {
+    return projetosCoorientador;
+  }
+  public void setProjetosCoorientador(List<Projeto> projetosCoorientador) {
+    this.projetosCoorientador = projetosCoorientador;
+  }
+  
+  public List<Candidatura> getCandidaturas() {
+    return candidaturas;
+  }
+  public void setCandidaturas(List<Candidatura> candidaturas) {
+    this.candidaturas = candidaturas;
+  }
+  public List<Notificacao> getNotificacoes() {
+    return notificacoes;
+  }
+  public void setNotificacoes(List<Notificacao> notificacoes) {
+    this.notificacoes = notificacoes;
+  }
+  public List<Equipe> getEquipes() {
+    return equipes;
+  }
+  public void setEquipes(List<Equipe> equipes) {
+    this.equipes = equipes;
   }
 }

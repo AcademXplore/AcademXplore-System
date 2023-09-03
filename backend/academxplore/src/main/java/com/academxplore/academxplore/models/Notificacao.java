@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,7 +16,7 @@ import jakarta.persistence.Table;
 public class Notificacao {
     @Id
     @GeneratedValue(strategy=GenerationType.UUID)
-    private String idNotif;
+    private String id;
     @Column(nullable = false)
     private String titulo;
     @Column(nullable = false)
@@ -24,22 +26,36 @@ public class Notificacao {
     private String tipo;
     @Column(nullable = false)
     private String status;
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
+    private Projeto projeto;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
     public Notificacao(){}
 
-    public Notificacao(String idNotif, String titulo, String descricao, Date dataCriacao, String tipo, String status) {
-        this.idNotif = idNotif;
+    public Notificacao(String id, String titulo, String descricao, Date dataCriacao, String tipo, String status) {
+        this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataCriacao = dataCriacao;
         this.tipo = tipo;
         this.status = status;
     }
-    public String getIdNotif() {
-        return idNotif;
+
+    public Usuario getUsuario() {
+        return usuario;
     }
-    public void setIdNotif(String idNotif) {
-        this.idNotif = idNotif;
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    public String getId() {
+        return id;
+    }
+    public void setId(String id) {
+        this.id = id;
     }
     public String getTitulo() {
         return titulo;
@@ -70,5 +86,12 @@ public class Notificacao {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public Projeto getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 }
