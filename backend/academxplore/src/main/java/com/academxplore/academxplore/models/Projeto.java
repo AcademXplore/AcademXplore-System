@@ -2,6 +2,10 @@ package com.academxplore.academxplore.models;
 
 import java.util.List;
 
+import com.academxplore.academxplore.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +20,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="projetos")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class,
+  property = "id"
+)
 public class Projeto {
     @Id
     @GeneratedValue(strategy=GenerationType.UUID)
@@ -29,7 +37,7 @@ public class Projeto {
     private String objetivos;
     @Column(nullable = false)
     private String cronograma;
-    private String status;
+    private Status status;
     @ManyToOne
     @JoinColumn(name = "professor_id")
     private Usuario professor;
@@ -38,6 +46,9 @@ public class Projeto {
     private Usuario coorientador;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Candidatura> candidaturas;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
+    private List<Equipe> equipes;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Notificacao> notificacoes;
     @OneToMany(cascade=CascadeType.ALL)
@@ -49,7 +60,7 @@ public class Projeto {
     private List<AreaInteresse> areasInteresse;
     public Projeto(){}
     public Projeto(String id, String titulo, String banner, String descricao, String objetivos,
-            String cronograma, String status) {
+            String cronograma, Status status) {
         this.id = id;
         this.titulo = titulo;
         this.banner = banner;
@@ -94,10 +105,10 @@ public class Projeto {
     public void setCronograma(String cronograma) {
         this.cronograma = cronograma;
     }
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
      public Usuario getProfessor() {
@@ -113,22 +124,32 @@ public class Projeto {
     public void setCoorientador(Usuario coorientador) {
         this.coorientador = coorientador;
     }
+    
      public List<Candidatura> getCandidaturas() {
         return candidaturas;
     }
     public void setCandidaturas(List<Candidatura> candidaturas) {
         this.candidaturas = candidaturas;
     }
+    
     public List<Notificacao> getNotificacoes() {
         return notificacoes;
     }
     public void setNotificacoes(List<Notificacao> notificacoes) {
         this.notificacoes = notificacoes;
     }
+    
     public List<AreaInteresse> getAreasInteresse() {
         return areasInteresse;
     }
     public void setAreasInteresse(List<AreaInteresse> areasInteresse) {
         this.areasInteresse = areasInteresse;
+    }
+    
+    public List<Equipe> getEquipes() {
+        return equipes;
+    }
+    public void setEquipes(List<Equipe> equipes) {
+        this.equipes = equipes;
     }
 }
