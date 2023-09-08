@@ -33,4 +33,22 @@ public class ProjetoController {
       return ResponseEntity.internalServerError().body(e);
     }
   }
+
+  @GetMapping("/equipes/{id}")
+  public ResponseEntity<Object> buscarEquipesPorId(@PathVariable("id") String id) throws Exception{
+    try{
+       return ResponseEntity.ok().body(projetoService.buscarEquipesPorId(id));
+    }catch(Exception e){
+      return ResponseEntity.internalServerError().body(e);
+    }
+  }
+
+  @GetMapping("/candidaturas/{id}")
+  public ResponseEntity<Object> buscarCandidaturasPorId(@PathVariable("id") String id) throws Exception{
+    try{
+       return ResponseEntity.ok().body(projetoService.buscarCandidaturasPorId(id));
+    }catch(Exception e){
+      return ResponseEntity.internalServerError().body(e);
+    }
+  }
 }

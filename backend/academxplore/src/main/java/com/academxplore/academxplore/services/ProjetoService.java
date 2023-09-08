@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.academxplore.academxplore.dto.CandidaturaDTO;
 import com.academxplore.academxplore.dto.ProjetoDetalhesDTO;
+import com.academxplore.academxplore.dto.ProjetoEquipesDTO;
 import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
 import com.academxplore.academxplore.enums.Status;
 import com.academxplore.academxplore.models.Projeto;
@@ -33,6 +35,34 @@ public class ProjetoService {
         throw new Exception("Não possui projetos com o ID indicado!");
       }
       return ProjetoDetalhesDTO.mapProjetoDetalhes(projeto.get());
+    }
+    catch(Exception e){
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  public ProjetoEquipesDTO buscarEquipesPorId(String id) throws Exception {
+   try{
+      Optional<Projeto> projeto = projetoRepository.findById(id);
+      if(!projeto.isPresent())
+      {
+        throw new Exception("Não possui projetos com o ID indicado!");
+      }
+      return new ProjetoEquipesDTO(projeto.get());
+    }
+    catch(Exception e){
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  public List<CandidaturaDTO> buscarCandidaturasPorId(String id) throws Exception {
+    try{
+      Optional<Projeto> projeto = projetoRepository.findById(id);
+      if(!projeto.isPresent())
+      {
+        throw new Exception("Não possui projetos com o ID indicado!");
+      }
+      return projeto.get().getCandidaturas().stream().map(entity -> new CandidaturaDTO(entity)).collect(Collectors.toList());
     }
     catch(Exception e){
       throw new Exception(e.getMessage());
