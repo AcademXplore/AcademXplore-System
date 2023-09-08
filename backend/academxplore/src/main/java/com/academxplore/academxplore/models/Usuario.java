@@ -3,6 +3,8 @@ package com.academxplore.academxplore.models;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,14 +46,19 @@ public class Usuario {
   private Date dataInicio;
   @Column(name = "data_fim")
   private Date dataFim;
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
   private List<Projeto> projetosProfessor;
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "coorientador")
   private List<Projeto> projetosCoorientador;
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
   private List<Candidatura> candidaturas;
+  @JsonIgnore
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
   private List<Notificacao> notificacoes;
+  @JsonIgnore
   @OneToMany(cascade=CascadeType.ALL)
   @JoinTable(
     name = "usuario_equipe",

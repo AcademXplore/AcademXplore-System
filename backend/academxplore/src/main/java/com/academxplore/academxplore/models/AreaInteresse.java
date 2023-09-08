@@ -3,6 +3,7 @@ package com.academxplore.academxplore.models;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
@@ -27,6 +28,7 @@ public class AreaInteresse {
   @GeneratedValue(strategy=GenerationType.UUID)
   private String id;
   private String nome;
+  @JsonIgnore
   @OneToMany(cascade=CascadeType.ALL)
   @JoinTable(
       name = "projeto_areas_interesse",

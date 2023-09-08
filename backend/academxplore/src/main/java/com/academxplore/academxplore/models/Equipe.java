@@ -35,8 +35,7 @@ public class Equipe {
     @ManyToOne
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
-
-   
+    
     public Equipe(){}
     public Equipe(String id, String nome) {
         this.id = id;
@@ -59,5 +58,11 @@ public class Equipe {
     }
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+    }
+    public Projeto getProjeto() {
+        return projeto;
+    }
+    public void setProjeto(Projeto projeto) {
+        this.projeto = projeto;
     }
 }
