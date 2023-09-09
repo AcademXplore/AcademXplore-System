@@ -11,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import com.academxplore.academxplore.enums.Status;
+import com.academxplore.academxplore.enums.TipoNotificacao;
+
 @Entity
 @Table(name="notificacoes")
 public class Notificacao {
@@ -23,9 +26,9 @@ public class Notificacao {
     private String descricao;
     @Column(nullable = false)
     private Date dataCriacao;
-    private String tipo;
+    private TipoNotificacao tipo;
     @Column(nullable = false)
-    private String status;
+    private Status status;
     @ManyToOne
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
@@ -35,7 +38,7 @@ public class Notificacao {
 
     public Notificacao(){}
 
-    public Notificacao(String id, String titulo, String descricao, Date dataCriacao, String tipo, String status) {
+    public Notificacao(String id, String titulo, String descricao, Date dataCriacao, TipoNotificacao tipo, Status status) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
@@ -75,22 +78,22 @@ public class Notificacao {
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
-    public String getTipo() {
+    public TipoNotificacao getTipo() {
         return tipo;
     }
-    public void setTipo(String tipo) {
+    public void setTipo(TipoNotificacao tipo) {
         this.tipo = tipo;
     }
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+
+    public void setStatus(Status status) {
         this.status = status;
     }
     public Projeto getProjeto() {
         return projeto;
     }
-
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
     }
