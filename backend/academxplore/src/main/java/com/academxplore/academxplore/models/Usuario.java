@@ -3,6 +3,7 @@ package com.academxplore.academxplore.models;
 import java.util.Date;
 import java.util.List;
 
+import com.academxplore.academxplore.dto.UsuarioDTO;
 import com.academxplore.academxplore.enums.PerfilUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -90,6 +91,23 @@ public class Usuario {
     this.formacao = formacao;
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
+  }
+  public Usuario(UsuarioDTO usuario) {
+    this.id = usuario.getId();
+    this.nome = usuario.getNome();
+    this.cpf = usuario.getCpf();
+    this.email = usuario.getEmail();
+    this.instituicao = usuario.getInstituicao();
+    this.perfil = usuario.getPerfil();
+    this.matricula = usuario.getMatricula();
+    this.lattes = usuario.getLattes();
+    this.linkedin = usuario.getLinkedin();
+    this.telefone = usuario.getTelefone();
+    this.curso = usuario.getCurso();
+    this.sobreVoce = usuario.getSobreVoce();
+    this.formacao = usuario.getFormacao();
+    this.dataInicio = usuario.getDataInicio();
+    this.dataFim = usuario.getDataFim();
   }
   public String getId() {
     return id;
