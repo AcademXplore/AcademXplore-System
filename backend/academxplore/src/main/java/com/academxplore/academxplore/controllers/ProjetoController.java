@@ -31,7 +31,7 @@ public class ProjetoController {
       return ResponseEntity.ok().body(projetoService.buscarDetalhesPorId(id));
     }
     catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -40,7 +40,7 @@ public class ProjetoController {
     try{
        return ResponseEntity.ok().body(projetoService.buscarEquipesPorId(id));
     }catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -49,7 +49,7 @@ public class ProjetoController {
     try{
        return ResponseEntity.ok().body(projetoService.buscarCandidaturasPorId(id));
     }catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -58,7 +58,7 @@ public class ProjetoController {
     try{
        return ResponseEntity.ok().body(projetoService.buscarPorTituloProfessor(pesquisa));
     }catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 }

@@ -22,7 +22,7 @@ public class ProfessorController {
       return ResponseEntity.ok().body(professorService.buscarProjetosPorId(id));
     }
     catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -32,7 +32,7 @@ public class ProfessorController {
       return ResponseEntity.ok().body(professorService.buscarCoorientadorPorEmail(email));
     }
     catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 }

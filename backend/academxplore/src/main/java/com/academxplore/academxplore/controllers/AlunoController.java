@@ -22,7 +22,7 @@ public class AlunoController {
       return ResponseEntity.ok().body(alunoService.buscarEquipesPorId(id));
     }
     catch(Exception e){
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 }

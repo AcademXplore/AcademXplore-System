@@ -22,7 +22,7 @@ public class NotificacaoController {
     try {
       return ResponseEntity.ok().body(notificacaoService.buscarNotificacaoUsuario(id));
     } catch (Exception e) {
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -31,7 +31,7 @@ public class NotificacaoController {
     try {
       return ResponseEntity.ok().body(notificacaoService.buscarNotificacaoPorId(id));
     } catch (Exception e) {
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 
@@ -41,7 +41,7 @@ public class NotificacaoController {
       notificacaoService.atualizarStatusNotificacao(id);
       return ResponseEntity.ok().body(null);
     } catch (Exception e) {
-      return ResponseEntity.internalServerError().body(e);
+      return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
 }
