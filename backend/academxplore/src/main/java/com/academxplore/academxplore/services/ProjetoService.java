@@ -68,4 +68,14 @@ public class ProjetoService {
       throw new Exception(e.getMessage());
     }
   }
+
+  public Object buscarPorTituloProfessor(String pesquisa) throws Exception {
+    try {
+      List<Projeto> projetos = projetoRepository.findByTituloOrProfessorNome(pesquisa);
+
+      return projetos.stream().map(entity -> ProjetoTimelineDTO.mapProjetoTimeline(entity)).collect(Collectors.toList());
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
 }

@@ -3,6 +3,7 @@ package com.academxplore.academxplore.models;
 import java.util.Date;
 import java.util.List;
 
+import com.academxplore.academxplore.enums.PerfilUsuario;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -31,7 +32,7 @@ public class Usuario {
   private String email;
   private String instituicao;
   @Column(nullable = false)
-  private String perfil;
+  private PerfilUsuario perfil;
   private String matricula;
   @Column(nullable = false)
   private String senha;
@@ -70,7 +71,7 @@ public class Usuario {
   
   
   public Usuario(){}
-  public Usuario(String id, String nome, String cpf, String email, String instituicao, String perfil, String matricula,
+  public Usuario(String id, String nome, String cpf, String email, String instituicao, PerfilUsuario perfil, String matricula,
       String senha, String lattes, String linkedin, String telefone, String curso, String sobreVoce, String formacao,
       Date dataInicio, Date dataFim) {
     this.id = id;
@@ -120,10 +121,10 @@ public class Usuario {
   public void setInstituicao(String instituicao) {
     this.instituicao = instituicao;
   }
-  public String getPerfil() {
+  public PerfilUsuario getPerfil() {
     return perfil;
   }
-  public void setPerfil(String perfil) {
+  public void setPerfil(PerfilUsuario perfil) {
     this.perfil = perfil;
   }
   public String getMatricula() {

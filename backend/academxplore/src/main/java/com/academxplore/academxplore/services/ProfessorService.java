@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
+import com.academxplore.academxplore.dto.UsuarioInformacoesBasicasDTO;
 import com.academxplore.academxplore.models.Projeto;
 import com.academxplore.academxplore.models.Usuario;
 import com.academxplore.academxplore.repositories.UsuarioRepository;
@@ -38,6 +39,16 @@ public class ProfessorService {
     }
     catch(Exception e)
     {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  public List<UsuarioInformacoesBasicasDTO> buscarCoorientadorPorEmail(String email) throws Exception {
+    try {
+      List<Usuario> usuario = usuarioRepository.findByEmail(email);
+      
+      return usuario.stream().map(entity -> new UsuarioInformacoesBasicasDTO(entity)).collect(Collectors.toList());  
+    } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
   }
