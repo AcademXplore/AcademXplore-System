@@ -1,12 +1,17 @@
-import Image from "next/image";
 import styles from "./page.module.css";
-import backgroundImage from "../app/Images/01.jpg";
+//import IconLogo from "./components/IconLogo"
 
 export default function Home() {
   return (
-    <main>
-      <div>
+    <main className="d-flex w-100 vh-100 ">
+     <div className="bg-info w-50 h-100 justify-content-center align-items-center d-flex align-items-end"><div>LOGO</div></div>
+     <div className="bg-warning w-50 h-100 ">FORMULARIO</div>
+    </main>
+  );
+}
 
+
+{/* <div>
         <div>
             <h1 className={styles.h1}> AcademXplore </h1>
             <h2 className={styles.h1}> Simpler and better </h2>
@@ -17,11 +22,8 @@ export default function Home() {
         </div>
 
             <div>
-              <button onclick="" > Login </button>
+              <button onclick="" className="btn btn-primary"> Login </button>
               <button onclick="" > Criar conta </button>
 
             </div>
-      </div>
-    </main>
-  );
-}
+      </div> */}
