@@ -1,7 +1,12 @@
 package com.academxplore.academxplore.models;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.academxplore.academxplore.dto.UsuarioDTO;
 import com.academxplore.academxplore.enums.PerfilUsuario;
@@ -20,7 +25,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
-public class Usuario {
+public class Usuario implements UserDetails{
 
   @Id
   @GeneratedValue(strategy=GenerationType.UUID)
@@ -235,5 +240,35 @@ public class Usuario {
   }
   public void setEquipes(List<Equipe> equipes) {
     this.equipes = equipes;
+  }
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    if(this.perfil == PerfilUsuario.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_PROFESSOR"), new SimpleGrantedAuthority("ROLE_ALUNO"));
+    else if(this.perfil == PerfilUsuario.PROFESSOR) return List.of(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
+    else return List.of(new SimpleGrantedAuthority("ROLE_ALUNO"));
+  }
+  @Override
+  public String getPassword() {
+    return this.senha;
+  }
+  @Override
+  public String getUsername() {
+    return this.email;
+  }
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+  @Override
+  public boolean isEnabled() {
+    return true;
   }
 }

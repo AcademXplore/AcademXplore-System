@@ -45,7 +45,7 @@ public class ProfessorService {
 
   public List<UsuarioInformacoesBasicasDTO> buscarCoorientadorPorEmail(String email) throws Exception {
     try {
-      List<Usuario> usuario = usuarioRepository.findByEmail(email);
+      List<Usuario> usuario = usuarioRepository.findByEmailProfessor(email);
       
       return usuario.stream().map(entity -> new UsuarioInformacoesBasicasDTO(entity)).collect(Collectors.toList());  
     } catch (Exception e) {

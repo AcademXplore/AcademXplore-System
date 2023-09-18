@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.academxplore.academxplore.dto.CadrastroRequest;
 import com.academxplore.academxplore.dto.UsuarioDTO;
 import com.academxplore.academxplore.services.UsuarioService;
 
@@ -37,4 +39,15 @@ public class UsuarioController {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
+
+  @PostMapping("/cadastro")
+  public ResponseEntity<Object> cadastrarUsuario(@RequestBody CadrastroRequest request) throws Exception {
+    try {
+      usuarioService.cadastrarUsuario(request);
+      return ResponseEntity.created(null).body("Usuário criado com sucesso!");
+    } catch (Exception e) {
+      return ResponseEntity.internalServerError().body(e.getMessage());
+    }
+  }
+
 }

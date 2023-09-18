@@ -4,14 +4,19 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.academxplore.academxplore.dto.CadrastroRequest;
 import com.academxplore.academxplore.dto.UsuarioDTO;
 import com.academxplore.academxplore.models.Usuario;
 import com.academxplore.academxplore.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Autowired
   private UsuarioRepository usuarioRepository;
@@ -85,6 +90,23 @@ public class UsuarioService {
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
+  }
+
+  public void cadastrarUsuario(CadrastroRequest cadastroRequest) throws Exception {
+    if(usuarioRepository.findByEmail(cadastroRequest.email()).isPresent()){
+      throw new Exception("Usuário já cadastrado!");
+    }
+    Usuario usuario = new Usuario();
+    usuario.setNome(cadastroRequest.nome());
+    usuario.setCpf(cadastroRequest.cpf());
+    usuario.setEmail(cadastroRequest.email());
+    usuario.setInstituicao(cadastroRequest.instituicao());
+    usuario.setPerfil(cadastroRequest.perfil());
+    usuario.setMatricula(cadastroRequest.matricula());
+    usuario.setSenha(passwordEncoder.encode(cadastroRequest.senha()));
+
+    usuarioRepository.save(usuario);
+
   }
 
 }
