@@ -17,7 +17,7 @@ public class AreaInteresseService {
   public List<AreaInteresse> buscarAreaInteresseNome(String nome) throws Exception {
     
     try {
-      List<AreaInteresse> areasInteresse = areaInteresseRepository.findByNome(nome);
+      List<AreaInteresse> areasInteresse = areaInteresseRepository.findByNomeArea(nome);
 
       return areasInteresse;
     } catch (Exception e) {

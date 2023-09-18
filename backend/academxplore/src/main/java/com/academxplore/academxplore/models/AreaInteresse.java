@@ -13,7 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,7 +29,7 @@ public class AreaInteresse {
   private String id;
   private String nome;
   @JsonIgnore
-  @OneToMany(cascade=CascadeType.ALL)
+  @ManyToMany(cascade=CascadeType.ALL)
   @JoinTable(
       name = "projeto_areas_interesse",
       joinColumns = {@JoinColumn(name = "areas_interesse_id", referencedColumnName = "id")},

@@ -13,7 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -37,6 +37,8 @@ public class Projeto {
     private String objetivos;
     @Column(nullable = false)
     private String cronograma;
+    @Column(nullable = false, name = "recursos_necessarios")
+    private String recursosNecessarios;
     private Status status;
     @ManyToOne
     @JoinColumn(name = "professor_id")
@@ -51,23 +53,18 @@ public class Projeto {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Notificacao> notificacoes;
-    @OneToMany(cascade=CascadeType.ALL)
-    @JoinTable(
-        name = "projeto_areas_interesse",
-        joinColumns = {@JoinColumn(name = "projeto_id", referencedColumnName="id")},
-        inverseJoinColumns = {@JoinColumn(name = "areas_interesse_id", referencedColumnName = "id")}
-    )
+    @ManyToMany(mappedBy ="projetos")
     private List<AreaInteresse> areasInteresse;
     public Projeto(){}
-    public Projeto(String id, String titulo, String banner, String descricao, String objetivos,
-            String cronograma, Status status) {
-        this.id = id;
+    public Projeto(String titulo, String banner, String descricao, String objetivos,
+            String cronograma, Status status, String recursosNecessarios) {
         this.titulo = titulo;
         this.banner = banner;
         this.descricao = descricao;
         this.objetivos = objetivos;
         this.cronograma = cronograma;
         this.status = status;
+        this.recursosNecessarios = recursosNecessarios;
     }
     public String getId() {
         return id;
@@ -151,5 +148,11 @@ public class Projeto {
     }
     public void setEquipes(List<Equipe> equipes) {
         this.equipes = equipes;
+    }
+    public String getRecursosNecessarios() {
+        return recursosNecessarios;
+    }
+    public void setRecursosNecessarios(String recursosNecessarios) {
+        this.recursosNecessarios = recursosNecessarios;
     }
 }

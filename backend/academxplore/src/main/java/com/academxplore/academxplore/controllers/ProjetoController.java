@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.academxplore.academxplore.dto.CadastroProjetoResquest;
 import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
 import com.academxplore.academxplore.services.ProjetoService;
 
@@ -56,6 +58,16 @@ public class ProjetoController {
   public ResponseEntity<Object> buscarPorTituloProfessor(@RequestBody String pesquisa) throws Exception {
     try {
       return ResponseEntity.ok().body(projetoService.buscarPorTituloProfessor(pesquisa));
+    } catch (Exception e) {
+      return ResponseEntity.internalServerError().body(e.getMessage());
+    }
+  }
+
+  @PostMapping("/cadastro")
+  public ResponseEntity<Object> cadastrarProjeto(@RequestBody CadastroProjetoResquest cadastroResquest){
+    try {
+      projetoService.cadastrarProjeto(cadastroResquest);
+      return ResponseEntity.ok().body("Projeto criado com sucesso!");
     } catch (Exception e) {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
