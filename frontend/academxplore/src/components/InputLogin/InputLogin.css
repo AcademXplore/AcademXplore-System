@@ -1,0 +1,21 @@
+.color-icon{
+  color: var(--secundary-color);
+}
+
+.input-login{
+  border-color: var(--secundary-color);
+  border-width: 0 0 1px 0;
+  font-size: 10px;
+  color: white;
+}
+
+.input-login:focus-visible{
+  border-color: var(--secundary-color);
+  border-width: 0 0 1px 0;
+  outline: none;
+}
+
+.input-login::placeholder{
+  color: var(--secundary-color);
+  font-size: 10px;
+}
