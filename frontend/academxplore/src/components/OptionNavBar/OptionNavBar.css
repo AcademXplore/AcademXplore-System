@@ -1,0 +1,7 @@
+.text-primary-color{
+  color: var(--text-primary-color)
+}
+
+.text-option-bar{
+  font-size: 10px;
+}

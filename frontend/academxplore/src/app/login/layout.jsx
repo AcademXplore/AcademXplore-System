@@ -1,4 +1,4 @@
-export default function RootLayout({ children }) {
+export default function RootLayoutLogin({ children }) {
   return (
     <main className="d-flex w-100 vh-100 ">
      <div className="bg-info w-50 h-100 justify-content-center align-items-center d-flex align-items-end"><div>LOGO</div></div>

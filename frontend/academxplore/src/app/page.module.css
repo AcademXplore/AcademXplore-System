@@ -1,15 +1,43 @@
-.body {
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
-  border-radius: 0;
-  /* background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)),url(./Images/01.jpg); */
-  background-repeat: no-repeat;
-  background-position: center;
+#main-home{
+ 
+  background: 
+    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+    url("./img/pessoas-que-trabalham-com-diagramas-e-graficos-na-mesa 1.png");
   background-size: cover;
 }
 
-.h1{
-  color:white;
-  font-family: 'Poppins', sans-serif;
+.btn-login-home{
+  padding: 17px 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+  background-color: #00B8B5;
+  border-radius: 20px;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-login-home:hover{
+  border: 2px solid #00B8B5;
+  padding: 15px 48px;
+  color: white;
+  background-color: transparent;
+}
+
+.btn-cadastrar-home{
+  padding: 15px 48px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px solid #00B8B5;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-cadastrar-home:hover{
+  border: none;
+  padding: 17px 50px;
+  color: black;
+  background-color: #00B8B5;
 }
