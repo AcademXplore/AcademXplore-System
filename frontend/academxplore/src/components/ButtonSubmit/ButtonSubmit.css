@@ -1,0 +1,11 @@
+.btn-login{
+    padding: 17px 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: black;
+    background-color: #00B8B5;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+  }
