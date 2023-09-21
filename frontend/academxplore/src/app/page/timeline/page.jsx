@@ -1,8 +1,9 @@
-
+'use client'
 
 export default function Timeline() {
   return(
-    <main >
+
+    <main onClick={() => console.log("OI")}>
       Olá
     </main>
   )

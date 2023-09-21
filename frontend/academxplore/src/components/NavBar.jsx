@@ -1,12 +1,23 @@
+'use client'
+
+import { useNav } from "@/hooks/useNav";
 import OptionNavBar from "./OptionNavBar/OptionNavBar";
+import { NavTypes } from "@/types/NavTypes";
+
 export default function NavBar() {
+  const {type, setType} = useNav()
+  
+  const handleChangeType = (value) =>{
+    setType(value)
+  }
+  
   return (
     <nav>
       <ul className="list-unstyled d-flex flex-md-row gap-3 my-auto ">
-        <OptionNavBar className="bi bi-house" texto="Início" selected={false}/>
-        <OptionNavBar className="bi bi-kanban" texto="Meus Projetos" selected/>
-        <OptionNavBar className="bi bi-bell" texto="Notificações" selected={false}/>
-        <OptionNavBar className="bi bi-person-circle" texto="Perfil" selected={false}/>
+        <OptionNavBar onClick={() => handleChangeType(NavTypes.timeline)} className="bi bi-house" texto="Início" href="/page/timeline" selected={type === NavTypes.timeline}/>
+        <OptionNavBar onClick={() => handleChangeType(NavTypes.myProjects)} className="bi bi-kanban" texto="Meus Projetos" href="/page/my-projects" selected={type === NavTypes.myProjects}/>
+        <OptionNavBar onClick={() => handleChangeType(NavTypes.notifications)} className="bi bi-bell" texto="Notificações" href="/page/notifications" selected={type === NavTypes.notifications}/>
+        <OptionNavBar onClick={() => handleChangeType(NavTypes.profile)} className="bi bi-person-circle" texto="Perfil" href="/page/profile" selected={type === NavTypes.profile}/>
       </ul>
     </nav>
   );

@@ -5,3 +5,7 @@
 .text-option-bar{
   font-size: 10px;
 }
+
+.option-li{
+  text-decoration: none;
+}
