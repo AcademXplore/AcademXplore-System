@@ -9,3 +9,39 @@ background-size: cover;
   background-color: var(--primary-color);
 }
 
+
+.btn-login-page{
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px solid #00B8B5;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-login-page:hover{
+  border: none;
+  padding: 15px 42px;
+  color: black;
+  background-color: #00B8B5;
+}
+
+.btn-cadastrar-page{
+  padding: 15px 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 2px solid #00B8B5;
+  text-decoration: none;
+  text-align: center;
+}
+.btn-cadastrar-page:hover{
+  border: none;
+  padding: 15px 42px;
+  color: black;
+  background-color: #00B8B5;
+}

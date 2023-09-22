@@ -14,8 +14,8 @@ export default function RootLayoutLogin({ children }) {
       </div>
       <div className="background-primary-color col-12 col-md-4 h-100 p-5">
         <div>
-          <Link href="/sign-in">Login</Link>
-          <Link href="/sign-up">Criar Conta</Link>
+          <Link className="btn-login-page" href="/sign-in">Login</Link>
+          <Link className="btn-cadastrar-page" href="/sign-up">Criar Conta</Link>
         </div>
         {children}
       </div>
