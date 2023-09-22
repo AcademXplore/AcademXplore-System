@@ -6,6 +6,6 @@ background-size: cover;
 }
 
 .background-primary-color{
-  background-color: var(--text-primary-color);
+  background-color: var(--primary-color);
 }
 

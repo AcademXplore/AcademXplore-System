@@ -1,7 +1,7 @@
 import "./ButtonSubmit.css"
 
-export default function ButtonSubmit(props) {
+export default function ButtonSubmit({text, ...props}) {
   return (
-    <button className="btn-login" type="submit">Teste</button>
+    <button className="btn-login w-50 " type="submit" {...props}>{text}</button>
   );
 }

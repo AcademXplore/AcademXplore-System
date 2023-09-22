@@ -1,11 +1,15 @@
 .btn-login{
-    padding: 17px 50px;
+    padding: 4px 0;
     font-size: 1rem;
     font-weight: 500;
-    color: black;
-    background-color: #00B8B5;
-    border-radius: 20px;
-    border: none;
-    text-decoration: none;
-    text-align: center;
+    color: white;
+    background-color: transparent;
+    border-radius: 15px;
+    border: 2px solid var(--secundary-color);
+    transition: color 0.2s;
+  }
+
+  .btn-login:hover{
+    color: var(--primary-color);
+    background-color: var(--secundary-color);
   }
