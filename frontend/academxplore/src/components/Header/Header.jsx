@@ -9,8 +9,8 @@ export default function Header() {
   
   return (
     <header className="navbar header px-3">
-      <div className="container-fluid  ">
-        <Link className="navbar-brand" href="/page/timeline">
+      <div className="container-fluid">
+        <Link className="navbar-brand" href="/timeline">
           <Image src={logo} height={36} width={36} />
         </Link>
         <NavBar/>
