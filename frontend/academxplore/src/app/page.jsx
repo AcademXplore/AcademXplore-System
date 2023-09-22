@@ -16,8 +16,8 @@ export default function Home() {
           <p className="fw-lighter ">Sistema de gestão de projetos acadêmicos desenvolvido por estudantes de Análise e Desenvolvimento de Sistemas. Simplifica a criação, execução e colaboração em projetos, incentivando inovação e excelência. Uma ferramenta essencial para explorar o potencial e alcançar o sucesso acadêmico.</p>
         </div>
         <div className="d-flex flex-column flex-md-row w-100 justify-content-end gap-4">
-            <Link className={styles["btn-login-home"]} href="/login/sign-in">Login</Link>
-            <Link className={styles["btn-cadastrar-home"]} href="/login/sign-up">Criar Conta</Link>
+            <Link className={styles["btn-login-home"]} href="/sign-in">Login</Link>
+            <Link className={styles["btn-cadastrar-home"]} href="/sign-up">Criar Conta</Link>
         </div>
       </div>
     </main>
