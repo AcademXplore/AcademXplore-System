@@ -2,9 +2,26 @@
 import {Formik, Form} from 'formik'
 import InputLogin from '@/components/InputLogin/InputLogin';
 import ButtonSubmit from '@/components/ButtonSubmit/ButtonSubmit';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import * as Yup from 'yup'
+import { signIn, useSession } from 'next-auth/react';
 
 export default function SignIn() {
+  const [error, setError] = useState("")
+  const [isFormSubmitting, setFormSubmitting] = useState(false)
+  const router = useRouter();
+  const { status } = useSession()
+
+  useEffect(() => {
+    if(status === "authenticated"){
+      router.push("/timeline")
+    }
+  }, [status, router])
+
+  if(status !== "unauthenticated"){
+    return null
+  }
 
   const initialValues = {
     email: "",
@@ -18,8 +35,31 @@ export default function SignIn() {
     password: Yup.string().required("O campo senha é obrigatório")
   })
 
-  const handleSubmit = () => {
-    
+  const handleSubmit = (values, {resetForm}) => {
+    setFormSubmitting(true)
+    try {
+      signIn("Credentials", {...values, redirect: false}).then(
+        ({error})=>{
+          if(!error){
+            router.push("/timeline")
+          }
+          else{
+            renderError("Erro ao tentar fazer login!")
+            resetForm()
+          }
+          setFormSubmitting(false)
+        }
+      )
+    } catch (error) {
+      setFormSubmitting(false)
+      renderError("Erro ao tentar fazer login!")
+    }
+  }
+  const renderError = (msg) => {
+    setError(msg)
+    setTimeout(() => {
+      setError("")
+    }, 3000)
   }
 
   return (
@@ -30,14 +70,20 @@ export default function SignIn() {
         onSubmit={handleSubmit}
       >
       {
-        ({value}) => {
+        ({values}) => {
           return(
             <Form noValidate className='d-flex flex-column w-100 h-100 justify-content-between align-items-center mt-3 '>
               <div className='w-100'>
                 <InputLogin iconBootstrap="bi bi-person" name="email" placeholder="Nome" type="email" required/>
                 <InputLogin iconBootstrap="bi bi-lock" name="password" placeholder="Senha" type="password" autoComplete="off" required/>
               </div>
-              <ButtonSubmit text="Entrar"/>
+              <ButtonSubmit 
+                text={isFormSubmitting ? "Carregando..." : "Entrar"}
+                disabled={isFormSubmitting}
+              />
+              {!values.email && !values.password && error && (
+                <span className='text-danger text-medium fs-6'>{error}</span>
+              )}
             </Form>
           )
         }

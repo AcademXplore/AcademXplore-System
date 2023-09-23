@@ -7,12 +7,25 @@ import * as Yup from 'yup'
 import { cpfIsInvalid } from '@/utils/cpfIsInvalid';
 import { optionIsValid } from '@/utils/optionIsValid';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function SignUp() {
   const [error, setError] = useState("")
   const [isFormSubmitting, setFormSubmitting] = useState(false)
   const router = useRouter();
+  const { status } = useSession()
+
+  useEffect(() => {
+    if(status === "authenticated"){
+      router.push("/timeline")
+    }
+  }, [status, router])
+
+  if(status !== "unauthenticated"){
+    return null
+  }
+
 
   const initialValues = {
     nome: "",
@@ -38,7 +51,6 @@ export default function SignUp() {
 
   const handleSubmit = async (values, {resetForm}) => {
     
-    console.log(values)
     setFormSubmitting(true)
     try {
       await fetch("/api/auth/register",{

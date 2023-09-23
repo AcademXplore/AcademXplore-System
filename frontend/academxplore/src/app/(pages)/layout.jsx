@@ -1,4 +1,5 @@
 "use client";
+import LayoutAdmin from "@/components/LayoutAdmin"
 import { NavContextProvider } from "@/contexts/NavContext";
 import Header from "../../components/Header/Header";
 import { usePathname  } from "next/navigation";
@@ -9,12 +10,14 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="pt-br">
-      <body>
-        <NavContextProvider pathname={pathname}>
-          <Header />
-          {children}
-        </NavContextProvider>
-      </body>
-    </html>
+        <body>
+          <LayoutAdmin>
+            <NavContextProvider pathname={pathname}>
+              <Header />
+              {children}
+            </NavContextProvider>
+          </LayoutAdmin>
+        </body>
+      </html>
   );
 }

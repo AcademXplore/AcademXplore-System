@@ -17,7 +17,7 @@ export function ProjectCard({ id, title, banner, tags }) {
       className="rounded-4 p-4 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center "
     >
       <div className="rounded-3 w-100 overflow-hidden card card-image">
-        <Image
+        <Image alt={title}
           className="card-img banner object-fit-cover "
           fill
           src={banner}

@@ -7,6 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.academxplore.academxplore.dto.LoginResponse;
+import com.academxplore.academxplore.models.Usuario;
+import com.academxplore.academxplore.repositories.UsuarioRepository;
+
 @Service
 public class LoginService {
   private static final String headerPrefix = "Bearer ";
@@ -15,21 +19,23 @@ public class LoginService {
   private AuthenticationManager authenticationManager;
 
   @Autowired
+  private UsuarioRepository usuarioRepository;
+
+  @Autowired
   private JWTService jwtService;
 
-  public String login(String email, String senha){
+  public LoginResponse login(String email, String senha) throws Exception{
     try {
 
       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, senha));
       SecurityContextHolder.getContext().setAuthentication(authentication);
+      Usuario usuario = usuarioRepository.findByEmail(email).get();
       String token = headerPrefix + jwtService.gerarToken(authentication);
-      return token;
+      LoginResponse response = new LoginResponse(usuario, token);
+      return response;
 
     } catch (Exception e) {
-      
-      System.out.println("####################################" + e.getMessage() + "####################################");
-      return e.getMessage();
-    
+      throw new Exception(e.getMessage());
     }
   }
 

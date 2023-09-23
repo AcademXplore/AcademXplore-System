@@ -32,6 +32,12 @@ export async function POST(req){
       .then(result => result)
       .catch(error => {throw new Error(error)});
 
+    if(res == "Usuário já cadastrado!"){
+      return NextResponse.json({
+        message: res,
+        status: 500
+      })
+    }
     return NextResponse.json({
       message: res,
       status: 201

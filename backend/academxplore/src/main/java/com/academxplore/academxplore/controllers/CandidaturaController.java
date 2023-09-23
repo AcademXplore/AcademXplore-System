@@ -12,17 +12,17 @@ import com.academxplore.academxplore.services.CandidaturaService;
 @RequestMapping("/candidaturas")
 public class CandidaturaController {
 
-    @Autowired
-    private CandidaturaService candidaturaService;
+    // @Autowired
+    // private CandidaturaService candidaturaService;
 
-    @GetMapping("/candidaturas/{id}")
-    public ResponseEntity<Object> criarCandidatura(@PathVariable("id") String id){
-        try{
-            return ResponseEntity.ok().body(candidaturaService.criarCandidatura(id));
-        }
-        catch(Exception e){
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
+    // @GetMapping("/candidaturas/{id}")
+    // public ResponseEntity<Object> criarCandidatura(@PathVariable("id") String id){
+    //     try{
+    //         return ResponseEntity.ok().body(candidaturaService.criarCandidatura(id));
+    //     }
+    //     catch(Exception e){
+    //         return ResponseEntity.internalServerError().body(e.getMessage());
+    //     }
+    // }
     
 }
