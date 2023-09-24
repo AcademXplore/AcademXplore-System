@@ -2,48 +2,43 @@ package com.academxplore.academxplore.services;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.academxplore.academxplore.dto.CandidaturaRequestDTO;
 import com.academxplore.academxplore.models.Candidatura;
 import com.academxplore.academxplore.models.Projeto;
 import com.academxplore.academxplore.models.Usuario;
+import com.academxplore.academxplore.repositories.CandidaturaRepository;
+import com.academxplore.academxplore.repositories.ProjetoRepository;
+import com.academxplore.academxplore.repositories.UsuarioRepository;
 
 @Service
 public class CandidaturaService {
 
-    // public Object criarCandidatura(String id) {
-    //     return null;
-    // }
-    
-    // @PostMapping
-    // public Candidatura criarCandidatura(@RequestParam String usuarioId, @RequestParam String projetoId) {
-    //     Candidatura candidatura = new Candidatura();
-        
-    //     //precisa?
-    //     try{
-    //         Optional<Usuario> usuario = usuarioRepository.findById(id);
-    //         if(!usuario.isPresent())
-    //         {
-    //             throw new Exception("Não possui usuario com o ID indicado!");
-    //         }
-    //         return usuario.get().getEquipes().stream().map(entity -> new EquipesUsuario(entity)).collect(Collectors.toList());
-    //     }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+    private CandidaturaRepository candidaturaRepository;
+    private ProjetoRepository projetoRepository;
 
-    //     Projeto projeto = projetoRepository.findById(projetoId)
-    //         .orElseThrow(() -> new ResourceNotFoundException("Projeto não encontrado com o ID: " + projetoId));
+    public void criarCandidatura(String usuarioId, String projetoId) throws Exception {
+        Candidatura candidatura = new Candidatura();
 
-    //     Usuario usuario = usuarioRepository.findById(usuarioId)
-    //         .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado com o ID: " + usuarioId));
-        
-    //     candidatura.setUsuario(usuario);
-    //     candidatura.setProjeto(projeto);
-        
-    //     candidatura = candidaturaRepository.save(candidatura);
-        
-    //     return candidatura;
-    // }
+        try {
+            Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+            if (!usuario.isPresent()) {
+                throw new Exception("Não possui usuario com o ID indicado!");
+            }
+
+            Optional<Projeto> projeto = projetoRepository.findById(projetoId);
+
+            if (!projeto.isPresent()) {
+                throw new Exception("Não possui projeto com o ID indicado!");
+            }
+            candidatura.setAluno(usuario.get());
+            candidatura.setProjeto(projeto.get());
+
+            candidatura = candidaturaRepository.save(candidatura);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
 }
