@@ -21,7 +21,7 @@ export default function SignUp() {
       router.push("/timeline")
     }
   }, [status, router])
-
+  
   const initialValues = {
     nome: "",
     cpf: "",

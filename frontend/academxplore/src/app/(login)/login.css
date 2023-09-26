@@ -45,3 +45,34 @@ background-size: cover;
   color: black;
   background-color: #00B8B5;
 }
+
+.button-box{
+  width: 100%;
+  margin: 35px auto;
+  position: relative;
+  border-radius:  30px;
+  background: #fff;
+  display: flex;
+  justify-content: space-around;
+}
+
+.toggle-btn{
+  padding: 10px 40px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+  text-align: center;
+
+}
+
+#btn{
+  top: 0;
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: var(--primary-color);
+  border-radius: 30px;
+  transition: .5s;
+}
