@@ -15,7 +15,6 @@ background-size: cover;
   font-size: 1rem;
   font-weight: 500;
   color: white;
-  background-color: transparent;
   border-radius: 20px;
   border: 2px solid #00B8B5;
   text-decoration: none;
@@ -25,7 +24,7 @@ background-size: cover;
   border: none;
   padding: 15px 42px;
   color: black;
-  background-color: #00B8B5;
+  background-color: #018482;
 }
 
 .btn-cadastrar-page{
@@ -33,9 +32,8 @@ background-size: cover;
   font-size: 1rem;
   font-weight: 500;
   color: white;
-  background-color: transparent;
   border-radius: 20px;
-  border: 2px solid #00B8B5;
+  border: 2px solid #018482;
   text-decoration: none;
   text-align: center;
 }
@@ -43,15 +41,16 @@ background-size: cover;
   border: none;
   padding: 15px 42px;
   color: black;
-  background-color: #00B8B5;
+  background-color: #018482;
 }
 
 .button-box{
   width: 100%;
-  margin: 35px auto;
+  height: 55px;
+  margin: auto;
   position: relative;
-  border-radius:  30px;
-  background: #fff;
+  border-radius:  10px;
+  background: #018482;
   display: flex;
   justify-content: space-around;
 }
@@ -72,7 +71,7 @@ background-size: cover;
   position: absolute;
   width: 50%;
   height: 100%;
-  background: var(--primary-color);
-  border-radius: 30px;
+  background: #00B8B5;
+  border-radius: 10px;
   transition: .5s;
 }
