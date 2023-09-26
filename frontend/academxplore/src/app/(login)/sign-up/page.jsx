@@ -22,11 +22,6 @@ export default function SignUp() {
     }
   }, [status, router])
 
-  if(status !== "unauthenticated"){
-    return null
-  }
-
-
   const initialValues = {
     nome: "",
     cpf: "",

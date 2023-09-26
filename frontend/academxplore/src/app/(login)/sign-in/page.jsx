@@ -19,10 +19,6 @@ export default function SignIn() {
     }
   }, [status, router])
 
-  if(status !== "unauthenticated"){
-    return null
-  }
-
   const initialValues = {
     email: "",
     password: ""
