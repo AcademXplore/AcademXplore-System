@@ -29,12 +29,7 @@ public class AreaInteresse {
   private String id;
   private String nome;
   @JsonIgnore
-  @ManyToMany(cascade=CascadeType.ALL)
-  @JoinTable(
-      name = "projeto_areas_interesse",
-      joinColumns = {@JoinColumn(name = "areas_interesse_id", referencedColumnName = "id")},
-      inverseJoinColumns = {@JoinColumn(name = "projeto_id", referencedColumnName="id")}
-  )
+  @ManyToMany(mappedBy = "areasInteresse")
   private List<Projeto> projetos;
   public AreaInteresse() {
   }

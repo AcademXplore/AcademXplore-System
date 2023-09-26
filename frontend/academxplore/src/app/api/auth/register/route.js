@@ -4,7 +4,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export async function POST(req){
   try {
-    debugger
     const {nome, cpf, email, instituicao, perfil, matricula, password} = await req.json()
 
     var myHeaders = new Headers();

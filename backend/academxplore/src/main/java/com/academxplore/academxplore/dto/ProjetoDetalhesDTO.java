@@ -12,6 +12,7 @@ public class ProjetoDetalhesDTO {
   private String descricao;
   private String objetivos;
   private String cronograma;
+  private String recursosNecessarios;
   // private UsuarioInformacoesBasicasDTO professor;
   // private UsuarioInformacoesBasicasDTO coorientador;
   // private List<UsuarioInformacoesBasicasDTO> alunos;
@@ -23,6 +24,7 @@ public class ProjetoDetalhesDTO {
     this.descricao = projeto.getDescricao();
     this.objetivos = projeto.getObjetivos();
     this.cronograma = projeto.getCronograma();
+    this.recursosNecessarios = projeto.getRecursosNecessarios();
     // this.professor = UsuarioInformacoesBasicasDTO.mapUsuarioInformacoesBasicasDTO(projeto.getProfessor());
     // this.coorientador = UsuarioInformacoesBasicasDTO.mapUsuarioInformacoesBasicasDTO(projeto.getCoorientador());
     // pegarUsuario(projeto.getEquipes());

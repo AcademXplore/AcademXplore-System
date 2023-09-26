@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -53,7 +54,12 @@ public class Projeto {
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "projeto")
     private List<Notificacao> notificacoes;
-    @ManyToMany(mappedBy ="projetos")
+    @ManyToMany
+    @JoinTable(
+      name = "projeto_areas_interesse",
+      joinColumns = {@JoinColumn(name = "projeto_id", referencedColumnName="id", unique = false)},
+      inverseJoinColumns = {@JoinColumn(name = "areas_interesse_id", referencedColumnName = "id", unique = false)}
+  )
     private List<AreaInteresse> areasInteresse;
     public Projeto(){}
     public Projeto(String titulo, String banner, String descricao, String objetivos,

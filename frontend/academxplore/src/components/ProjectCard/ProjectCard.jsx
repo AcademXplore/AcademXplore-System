@@ -1,8 +1,15 @@
+import { useSession } from "next-auth/react";
 import "./ProjectCard.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export function ProjectCard({ id, title, banner, tags }) {
+  const {data: session} = useSession()
+  const [seCandidatou, setSeCandidatou] = useState(false)
+
+  const PERFIL = session?.user.perfil.toLowerCase()
+
   const gerarNumeroAleatorio = () => {
     const numeroAleatorio = Math.random();
 
@@ -11,10 +18,14 @@ export function ProjectCard({ id, title, banner, tags }) {
     return numeroEntreZeroE255;
   };
 
+  const handleCandidatar = () =>{
+    setSeCandidatou(!seCandidatou)
+  }
+
   return (
     <div
       id={id}
-      className="rounded-4 p-4 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center "
+      className="rounded-4 p-4 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center bg-light"
     >
       <div className="rounded-3 w-100 overflow-hidden card card-image">
         <Image alt={title}
@@ -44,7 +55,7 @@ export function ProjectCard({ id, title, banner, tags }) {
         </div>
         <div className="d-flex gap-3 ">
           <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
-          <button className="btn-candidatar" type="button">Candidatar-se</button>
+          {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">{seCandidatou ? <i className="bi bi-check-lg text-light"></i> : "Candidatar-se"}</div>}
         </div>
       </div>
     </div>

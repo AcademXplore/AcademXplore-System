@@ -1,0 +1,8 @@
+.btn-submit-project{
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-submit-project:hover{
+  background-color: var(--secundary-color);
+}

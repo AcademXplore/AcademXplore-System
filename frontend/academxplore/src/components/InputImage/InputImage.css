@@ -1,0 +1,22 @@
+.input-image{
+  width: 100%;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.25);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.label-banner{
+  border-radius: 8px;
+  background-color: var(--green-dark-color);
+  color: white;
+  padding: 14px 19px;
+  cursor: pointer;
+}
+.label-banner:hover{
+  background-color: var(--primary-color);
+}
+#file{
+  display: none;
+}

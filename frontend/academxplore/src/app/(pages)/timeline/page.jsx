@@ -1,14 +1,24 @@
 "use client"
+import { ButtonPlusFloat } from "@/components/ButtonPlusFloat/ButtonPlusFloat"
+import { DialogFormProjeto } from "@/components/DialogFormProjeto/DialogFormProjeto"
 import { ProjectList } from "@/components/ProjectList/ProjectList"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { FormProductContextProvider } from "@/contexts/FormProductContext"
+
+import { useSession } from "next-auth/react"
 
 export default function Timeline() {
-  const client = new QueryClient()
+
+  const {data: session} = useSession()
+
+  const PERFIL = session?.user.perfil.toLowerCase()
+
   return(
-      <QueryClientProvider client={client}>
-        <main className="container">
-          <ProjectList/>
-        </main>
-      </QueryClientProvider>
+    <FormProductContextProvider>
+      <main className="container position-relative" >
+        <DialogFormProjeto/>
+        <ProjectList/>
+        {PERFIL == "professor" && <ButtonPlusFloat/>}
+      </main>
+    </FormProductContextProvider>
   )
 }

@@ -1,0 +1,7 @@
+.fundo-dialogo{
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.fundo-dialogo div div i{
+  cursor: pointer;
+}

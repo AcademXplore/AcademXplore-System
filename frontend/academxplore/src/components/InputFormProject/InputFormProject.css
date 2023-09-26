@@ -1,0 +1,8 @@
+.input-form-project{
+  background-color: rgba(0, 107, 105, 0.69);
+  color: white;
+}
+
+.input-form-project::placeholder{
+  color: rgba(255, 255, 255, 0.7);
+}
