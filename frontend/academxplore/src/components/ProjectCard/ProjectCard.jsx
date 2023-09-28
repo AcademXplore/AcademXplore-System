@@ -1,12 +1,19 @@
+"use client"
 import { useSession } from "next-auth/react";
 import "./ProjectCard.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { IconCandidaturas } from "../IconCandidaturas";
+import { useDialogCandidatura } from "@/hooks/useDialogCandidatura";
 
 export function ProjectCard({ id, title, banner, tags }) {
   const {data: session} = useSession()
   const [seCandidatou, setSeCandidatou] = useState(false)
+  const {isVisible, setIsVisible, setProjeto, isLoading, setIsLoading} = useDialogCandidatura()
+  const pathname = usePathname();
+
 
   const PERFIL = session?.user.perfil.toLowerCase()
 
@@ -20,6 +27,31 @@ export function ProjectCard({ id, title, banner, tags }) {
 
   const handleCandidatar = () =>{
     setSeCandidatou(!seCandidatou)
+  }
+
+  const openDialogCandidaturas = async () => {
+    try{
+      setIsVisible(!isVisible)
+      setIsLoading(true)
+      await fetch("/api/project/candidatura/"+id, {
+        method: "GET",
+        headers:{
+          "Content-Type": "application/json",
+          "Authorization": session?.user.accessToken
+        }
+      })
+      .then(async (res) => {
+        const result = await res.json()
+        
+        if(result.status == 201){
+          setProjeto(result.data)
+        }
+      })
+      setIsLoading(false)
+    }
+    catch(error){
+
+    }
   }
 
   return (
@@ -53,10 +85,17 @@ export function ProjectCard({ id, title, banner, tags }) {
             </span>
           ))}
         </div>
+        {pathname == "/timeline" ?
         <div className="d-flex gap-3 ">
           <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
           {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">{seCandidatou ? <i className="bi bi-check-lg text-light"></i> : "Candidatar-se"}</div>}
+        </div> 
+        : 
+        <div className="d-flex gap-3 ">
+          {PERFIL == "professor" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
+          <Link className="btn-abrir-projeto" href={`/project-details/${id}`} >Abrir Projeto</Link>
         </div>
+        }
       </div>
     </div>
   );

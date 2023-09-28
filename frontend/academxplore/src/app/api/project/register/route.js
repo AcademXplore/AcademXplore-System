@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { Storage } from "@google-cloud/storage";
 import path from "path";
-import { Stream } from "stream";
 import crypto from "crypto";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;

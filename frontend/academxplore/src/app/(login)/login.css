@@ -63,7 +63,7 @@ background-size: cover;
   outline: none;
   position: relative;
   text-align: center;
-
+  width: 50%;
 }
 
 #btn{

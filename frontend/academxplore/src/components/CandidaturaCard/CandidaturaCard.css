@@ -1,0 +1,16 @@
+.bg-candidatura-light{
+  background-color: #C0D2D2;
+}
+
+.bg-candidatura-dark{
+  background-color: #A0CAC9;
+}
+
+.nome-candidato{
+  color: #065351;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}

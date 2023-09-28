@@ -7,14 +7,10 @@ import { Loading } from "@/components/Loading/Loading";
 export default function ProjectDetails({ params }) {
   const { data, isLoading } = useProject(params.project);
 
-  if (isLoading) {
-    return (
-      <Loading/>
-    )
-  }
 
   return (
-    <main className="container">
+    <main className="container position-relative min-vh-100 d-flex flex-column justify-content-center">
+      {isLoading ? <Loading/> :
       <div className="rounded-4 p-5 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center bg-light">
         <div className="rounded-3 w-100 overflow-hidden card card-image">
           <Image
@@ -44,10 +40,8 @@ export default function ProjectDetails({ params }) {
             <h1 class="fw-normal fs-4 text-dark">Recursos Necessários</h1>
             <p className="fs-6 text-dark-emphasis  ms-4">{data?.recursosNecessarios}</p>            
           </div>
-         
-
         </div>
-      </div>
+      </div>}
     </main>
   );
 }

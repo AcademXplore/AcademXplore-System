@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/academxplore-files/project-images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.google.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 }
