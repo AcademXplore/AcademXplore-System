@@ -93,7 +93,7 @@ export function ProjectCard({ id, title, banner, tags }) {
         : 
         <div className="d-flex gap-3 ">
           {PERFIL == "professor" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
-          <Link className="btn-abrir-projeto" href={`/project-details/${id}`} >Abrir Projeto</Link>
+          <Link className="btn-abrir-projeto" href={`/my-projects/${id}`} >Abrir Projeto</Link>
         </div>
         }
       </div>

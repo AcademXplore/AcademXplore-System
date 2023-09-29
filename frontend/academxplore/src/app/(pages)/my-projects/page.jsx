@@ -13,7 +13,7 @@ export default function MyProject() {
   return(
     <FormProductContextProvider>
       <DialogCandidaturaContextProvider>
-        <main className="container position-relative min-vh-100 d-flex flex-column justify-content-center">
+        <main className="container position-relative h-100 d-flex flex-column">
           <DialogFormProjeto/>
           <DialogCandidaturas/>
           <MyProjectsList/>

@@ -21,7 +21,7 @@ export default function RootLayoutLogin({ children }) {
   }
 
   return (
-    <main className="d-flex w-100 vh-100 ">
+    <section className="d-flex w-100 vh-100 ">
       <div className="col-md-8 h-100 justify-content-center align-items-center d-none  d-md-flex align-items-end flex-column background-image-meet">
         <div className="col-4 justify-content-center align-items-center d-flex overflow-hidden ">
           <Image alt="Logo do academxplore" src={logo} style={{width: "260px", height: "260px"}} />
@@ -36,6 +36,6 @@ export default function RootLayoutLogin({ children }) {
         </div>
         {children}
       </div>
-    </main>
+    </section>
   );
 }

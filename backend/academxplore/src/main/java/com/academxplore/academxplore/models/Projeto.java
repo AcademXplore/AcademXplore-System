@@ -6,14 +6,17 @@ import com.academxplore.academxplore.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -31,14 +34,14 @@ public class Projeto {
     private String id;
     @Column(nullable = false)
     private String titulo;
-    private String banner; //aqui seria uma imagem
-    @Column(nullable = false)
+    private String banner; 
+    @Column(length = 9999999,nullable = false)
     private String descricao;
-    @Column(nullable = false)
+    @Column(length = 9999999,nullable = false)
     private String objetivos;
-    @Column(nullable = false)
+    @Column(length = 9999999,nullable = false)
     private String cronograma;
-    @Column(nullable = false, name = "recursos_necessarios")
+    @Column(length = 9999999,nullable = false, name = "recursos_necessarios")
     private String recursosNecessarios;
     private Status status;
     @ManyToOne

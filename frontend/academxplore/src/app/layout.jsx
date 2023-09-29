@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-br">
       <AuthProvider>
-        <body className={poppins.className}>{children}</body>
+        <body className={poppins.className + " min-vh-100"}>{children}</body>
       </AuthProvider>
     </html>
   )

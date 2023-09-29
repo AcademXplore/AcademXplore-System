@@ -42,6 +42,7 @@ export function DialogFormProjeto(){
 
   const handleSubmit = async(values, {resetForm}) => {
     setFormSubmitting(true)
+    debugger
     try {
       await fetch("/api/project/register",{
         method: "POST",

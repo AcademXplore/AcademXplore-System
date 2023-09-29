@@ -5,9 +5,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function GET(request, { params }) {
   try {
+    
     const token = headers().get('Authorization')
     const projectId = params.projectId
-    
+
     var myHeaders = new Headers();
     myHeaders.append("Authorization", token);
 
@@ -17,7 +18,8 @@ export async function GET(request, { params }) {
       redirect: "follow",
     };
 
-    const res = await fetch(`${API_URL}/projeto/candidaturas/${projectId}`,requestOptions);
+    const res = await fetch(`${API_URL}/projeto/equipes/${projectId}`,requestOptions);
+
     if (res.status != 200) {
       return NextResponse.json({
         message: res.text(),
@@ -28,6 +30,7 @@ export async function GET(request, { params }) {
       data: await res.json(),
       status: 201,
     });
+
   } catch (error) {
     return NextResponse.json({
       message: error,

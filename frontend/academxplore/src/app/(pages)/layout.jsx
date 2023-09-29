@@ -10,17 +10,16 @@ export default function RootLayout({ children }) {
   const pathname = usePathname()
 
   return (
-    <html lang="pt-br">
-        <body style={{backgroundColor: "#F3F3F3"}}>
-          <LayoutAdmin>
-            <NavContextProvider pathname={pathname}>
-              <QueryClientProvider client={client}>
-                <Header />
-                {children}
-              </QueryClientProvider>
-            </NavContextProvider>
-          </LayoutAdmin>
-        </body>
-      </html>
+    <LayoutAdmin>
+      <NavContextProvider pathname={pathname}>
+
+        <QueryClientProvider client={client}>
+          <section className="min-vh-100" style={{backgroundColor: "#F3F3F3"}}>
+            <Header />
+            {children}
+          </section>
+        </QueryClientProvider>
+      </NavContextProvider>
+    </LayoutAdmin>
   );
 }
