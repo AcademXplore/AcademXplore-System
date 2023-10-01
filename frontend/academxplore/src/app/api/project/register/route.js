@@ -47,16 +47,15 @@ export async function POST(req) {
       },
       function (error) {
         if (error) {
-          console.log(error.message);
+          return error.message;
         }
         
-        console.log("SUCESSO")
+       return "SUCESSO";
       
       }
     );
     
     const publicUrl =`https://storage.googleapis.com/academxplore-files/project-images/${fileName}`;
-    console.log(publicUrl)
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");

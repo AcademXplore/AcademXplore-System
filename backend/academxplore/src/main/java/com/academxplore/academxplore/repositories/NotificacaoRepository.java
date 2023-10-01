@@ -9,7 +9,7 @@ import com.academxplore.academxplore.models.Notificacao;
 
 public interface NotificacaoRepository extends JpaRepository<Notificacao, String> {
 
-  @Query("SELECT n FROM Notificacao n JOIN n.usuario u WHERE u.id = ?1")
+  @Query("SELECT n FROM Notificacao n JOIN n.usuario u WHERE u.id = ?1 ORDER by n.dataCriacao desc")
   List<Notificacao> findByUsuario(String id);
     
 }

@@ -18,6 +18,7 @@ public class NotificacaoDTO {
   private Status status;
   private String projetoId;
   private String projetoTitulo;
+  private String candidaturaId;
 
   public NotificacaoDTO(Notificacao notificacao) {
     this.id = notificacao.getId();
@@ -26,8 +27,9 @@ public class NotificacaoDTO {
     this.dataCriacao = notificacao.getDataCriacao();
     this.tipo = notificacao.getTipo();
     this.status = notificacao.getStatus();
-    this.projetoId = notificacao.getProjeto().getId();
-    this.projetoTitulo = notificacao.getProjeto().getTitulo();
+    this.projetoId = notificacao.getProjeto() != null ? notificacao.getProjeto().getId() : "";
+    this.projetoTitulo = notificacao.getProjeto() != null ? notificacao.getProjeto().getTitulo() : "";
+    this.candidaturaId = notificacao.getCandidatura() != null ? notificacao.getCandidatura().getId() : "";
   }
 
 }

@@ -1,5 +1,6 @@
 package com.academxplore.academxplore.services;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -9,7 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.academxplore.academxplore.dto.CadrastroRequest;
 import com.academxplore.academxplore.dto.UsuarioDTO;
+import com.academxplore.academxplore.enums.Status;
+import com.academxplore.academxplore.enums.TipoNotificacao;
+import com.academxplore.academxplore.models.Notificacao;
 import com.academxplore.academxplore.models.Usuario;
+import com.academxplore.academxplore.repositories.NotificacaoRepository;
 import com.academxplore.academxplore.repositories.UsuarioRepository;
 
 @Service
@@ -20,6 +25,9 @@ public class UsuarioService {
 
   @Autowired
   private UsuarioRepository usuarioRepository;
+
+  @Autowired
+  private NotificacaoRepository notificacaoRepository;
 
   public UsuarioDTO buscarUsuario(String id) throws Exception {
     try {
@@ -105,8 +113,16 @@ public class UsuarioService {
     usuario.setMatricula(cadastroRequest.matricula());
     usuario.setSenha(passwordEncoder.encode(cadastroRequest.senha()));
 
-    usuarioRepository.save(usuario);
+    Usuario usuarioCriado = usuarioRepository.save(usuario);
 
+    String titulo = "Bem-vindo ao AcademXplore";
+    String descricao = "Seja muito bem-vindo a nossa plataforma de participação de projetos acadêmicos, aproveite a lista de projetos disponivel em nossa tela inicial!!!";
+    Date dataCriacao = new Date();
+    TipoNotificacao tipoNotificacao = TipoNotificacao.CRIACAO;
+    Status statusNotificacao = Status.Ativo;
+
+    Notificacao notificacaoProfessor = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao, statusNotificacao, null, usuarioCriado, null);
+    notificacaoRepository.save(notificacaoProfessor);
   }
 
 }

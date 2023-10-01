@@ -7,31 +7,69 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { IconCandidaturas } from "../IconCandidaturas";
 import { useDialogCandidatura } from "@/hooks/useDialogCandidatura";
+import { gerarNumeroAleatorio } from "@/utils/gerarNumeroAleatorio";
+import { useSelectEquipeCandidatura } from "@/hooks/useSelectEquipeCandidatura";
 
 export function ProjectCard({ id, title, banner, tags }) {
   const {data: session} = useSession()
-  const [seCandidatou, setSeCandidatou] = useState(false)
-  const {isVisible, setIsVisible, setProjeto, isLoading, setIsLoading} = useDialogCandidatura()
+  const {isVisible, setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
+  const {isOpen, setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
   const pathname = usePathname();
-
 
   const PERFIL = session?.user.perfil.toLowerCase()
 
-  const gerarNumeroAleatorio = () => {
-    const numeroAleatorio = Math.random();
 
-    const numeroEntreZeroE255 = Math.floor(numeroAleatorio * 256);
+  const checkarSeJaCandidatou = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", session?.user?.accessToken);
 
-    return numeroEntreZeroE255;
-  };
+    var raw = JSON.stringify({
+      usuarioID: session?.user?.id,
+      projetoID: id
+    });
 
-  const handleCandidatar = () =>{
-    setSeCandidatou(!seCandidatou)
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+
+    const res = await fetch(`${API_URL}/candidatura/confirmar`, requestOptions).then(res => res.json())
+
+    return res
+  }
+
+  const handleCandidatar = async () =>{
+    setIsOpen(true)
+    setIsLoadingEquipesCandidatura(true)
+    const possuiCandidatura = await checkarSeJaCandidatou()
+    if(possuiCandidatura){
+      setIsLoadingEquipesCandidatura(false)
+      setIsOpen(false)
+      alert("Você já se candidatou nesse projeto anteriormente. Tente um outro projeto...")
+    }
+    else{
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", session?.user?.accessToken);
+    
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+      const res = await fetch(`/api/project/equipes/${id}`, requestOptions).then(res => res.json())
+      setProjetoId(id)
+      setEquipes(res?.data?.equipes)
+      setIsLoadingEquipesCandidatura(false)
+    }
   }
 
   const openDialogCandidaturas = async () => {
     try{
-      setIsVisible(!isVisible)
+      setIsVisible(true)
       setIsLoading(true)
       await fetch("/api/project/candidatura/"+id, {
         method: "GET",
@@ -88,7 +126,7 @@ export function ProjectCard({ id, title, banner, tags }) {
         {pathname == "/timeline" ?
         <div className="d-flex gap-3 ">
           <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
-          {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">{seCandidatou ? <i className="bi bi-check-lg text-light"></i> : "Candidatar-se"}</div>}
+          {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">Candidatar-se</div>}
         </div> 
         : 
         <div className="d-flex gap-3 ">

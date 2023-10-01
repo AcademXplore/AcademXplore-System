@@ -54,16 +54,16 @@ public class Usuario implements UserDetails{
   @Column(name = "data_fim")
   private Date dataFim;
   @JsonIgnore
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
+  @OneToMany(mappedBy = "professor")
   private List<Projeto> projetosProfessor;
   @JsonIgnore
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "coorientador")
+  @OneToMany(mappedBy = "coorientador")
   private List<Projeto> projetosCoorientador;
   @JsonIgnore
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "aluno")
+  @OneToMany(mappedBy = "aluno")
   private List<Candidatura> candidaturas;
   @JsonIgnore
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+  @OneToMany(mappedBy = "usuario")
   private List<Notificacao> notificacoes;
   @JsonIgnore
   @OneToMany(cascade=CascadeType.ALL)

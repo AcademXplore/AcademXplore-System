@@ -2,6 +2,8 @@ package com.academxplore.academxplore.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +37,9 @@ public class Equipe {
     @ManyToOne
     @JoinColumn(name = "projeto_id")
     private Projeto projeto;
+    @JsonIgnore
+    @OneToMany(mappedBy = "equipe")
+    private List<Candidatura> candidaturas;
     
     public Equipe(){}
     public Equipe(String id, String nome) {
@@ -64,5 +69,11 @@ public class Equipe {
     }
     public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
+    }
+    public List<Candidatura> getCandidaturas() {
+        return candidaturas;
+    }
+    public void setCandidaturas(List<Candidatura> candidaturas) {
+        this.candidaturas = candidaturas;
     }
 }

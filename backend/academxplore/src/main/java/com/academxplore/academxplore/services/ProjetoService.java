@@ -1,6 +1,7 @@
 package com.academxplore.academxplore.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,12 +15,17 @@ import com.academxplore.academxplore.dto.ProjetoDetalhesDTO;
 import com.academxplore.academxplore.dto.ProjetoEquipesDTO;
 import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
 import com.academxplore.academxplore.enums.Status;
+import com.academxplore.academxplore.enums.TipoNotificacao;
 import com.academxplore.academxplore.models.AreaInteresse;
+import com.academxplore.academxplore.models.Candidatura;
 import com.academxplore.academxplore.models.Equipe;
+import com.academxplore.academxplore.models.Notificacao;
 import com.academxplore.academxplore.models.Projeto;
 import com.academxplore.academxplore.models.Usuario;
 import com.academxplore.academxplore.repositories.AreaInteresseRepository;
+import com.academxplore.academxplore.repositories.CandidaturaRepository;
 import com.academxplore.academxplore.repositories.EquipeRepository;
+import com.academxplore.academxplore.repositories.NotificacaoRepository;
 import com.academxplore.academxplore.repositories.ProjetoRepository;
 import com.academxplore.academxplore.repositories.UsuarioRepository;
 
@@ -37,6 +43,12 @@ public class ProjetoService {
 
   @Autowired
   private EquipeRepository equipeRepository;
+
+  @Autowired
+  private NotificacaoRepository notificacaoRepository;
+
+  @Autowired
+  private CandidaturaRepository candidaturaRepository;
 
   public List<ProjetoTimelineDTO> listarProjetosAtivos() {
     List<Projeto> projetos = projetoRepository.findByStatus(Status.Ativo);
@@ -71,11 +83,8 @@ public class ProjetoService {
 
   public List<CandidaturaDTO> buscarCandidaturasPorId(String id) throws Exception {
     try {
-      Optional<Projeto> projeto = projetoRepository.findById(id);
-      if (!projeto.isPresent()) {
-        throw new Exception("Não possui projetos com o ID indicado!");
-      }
-      return projeto.get().getCandidaturas().stream().map(entity -> new CandidaturaDTO(entity))
+      List<Candidatura> candidaturas = candidaturaRepository.procureCandidaturasAtivasPorProjetoId(id);
+      return candidaturas.stream().map(entity -> new CandidaturaDTO(entity))
           .collect(Collectors.toList());
     } catch (Exception e) {
       throw new Exception(e.getMessage());
@@ -118,16 +127,9 @@ public class ProjetoService {
           AreaInteresse areaInteresseCriado = new AreaInteresse();
           areaInteresseCriado.setNome(area);
           areasInteresseCadastro.add(areaInteresseRepository.save(areaInteresseCriado));
-          // List<Projeto> projetos = new ArrayList<Projeto>();
-          // projetos.add(projetoCriado);
-          // areaInteresseCriado.setProjetos(projetos);
         } else {
           AreaInteresse areaInteresseAdicionarProjeto = areaBase.get();
           areasInteresseCadastro.add(areaInteresseAdicionarProjeto);
-          // List<Projeto> projetos = new ArrayList<Projeto>();
-          // projetos.add(projetoCriado);
-          // areaInteresseAdicionarProjeto.setProjetos(projetos);
-          // areaInteresseRepository.save(areaInteresseAdicionarProjeto);
         }
       }
       if (!areasInteresseCadastro.isEmpty()) {
@@ -142,6 +144,15 @@ public class ProjetoService {
         equipe.setProjeto(projetoCriado);
         equipeRepository.save(equipe);
       }
+
+      String titulo = "Parabéns Novo Projeto";
+      String descricao = "Parabéns você criou um novo projeto de nome \""+ projetoCriado.getTitulo() + "\".";
+      Date dataCriacao = new Date();
+      TipoNotificacao tipoNotificacao = TipoNotificacao.CRIACAO;
+      Status statusNotificacao = Status.Ativo;
+
+      Notificacao notificacaoProfessor = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao, statusNotificacao, projetoCriado, projetoCriado.getProfessor(), null);
+      notificacaoRepository.save(notificacaoProfessor);
 
     } catch (Exception e) {
        throw new Exception(e.getMessage());

@@ -1,5 +1,6 @@
 package com.academxplore.academxplore.dto;
 
+import com.academxplore.academxplore.enums.Status;
 import com.academxplore.academxplore.models.Candidatura;
 
 import lombok.Data;
@@ -8,7 +9,7 @@ import lombok.Data;
 public class CandidaturaDTO {
   
   private String id;
-  private String status;
+  private Status status;
   private UsuarioInformacoesBasicasDTO aluno;
 
   public CandidaturaDTO(Candidatura candidatura) {
