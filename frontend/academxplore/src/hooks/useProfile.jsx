@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
-export function useProfile(){
+export function useProfile(id, queryKey){
   const {data: session} = useSession()  
 
   const { data, isLoading } = useQuery({
@@ -19,9 +19,9 @@ export function useProfile(){
         redirect: 'follow'
       };
       
-      return await fetch(`${API_URL}/usuario/${session?.user?.id}`, requestOptions).then(res => res.json())
+      return await fetch(`${API_URL}/usuario/${id}`, requestOptions).then(res => res.json())
     },
-    queryKey: ['profileByID']
+    queryKey: [queryKey]
   })
   return {
     data: data,
