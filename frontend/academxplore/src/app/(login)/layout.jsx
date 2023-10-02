@@ -28,7 +28,7 @@ export default function RootLayoutLogin({ children }) {
         </div>
         <h1 className="fw-lighter text-light">Simpler and better</h1>
       </div>
-      <div className="background-primary-color col-12 col-md-4 h-100 p-5">
+      <div className="background-primary-color col-12 col-md-4 h-100 p-5 d-flex flex-column">
         <div className="button-box">
           <div id="btn" style={{left: left}}></div>
           <button className="toggle-btn" type="button" onClick={handleSignUp}>Criar Conta</button>

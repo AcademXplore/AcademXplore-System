@@ -105,7 +105,7 @@ export default function SignUp() {
       {
         ({values}) => {
           return(
-            <Form noValidate className='d-flex flex-column w-100 h-100 justify-content-between align-items-center mt-3 '>
+            <Form noValidate className='d-flex flex-column w-100 justify-content-between h-100 mt-3 '>
               <div className='w-100'>
 
                 <InputLogin iconBootstrap="bi bi-person" name="nome" placeholder="Nome" type="text" required/>
@@ -115,15 +115,17 @@ export default function SignUp() {
                 <InputLogin iconBootstrap="bi bi-person-video3" name="perfil" options={options} type="select" required/>
                 <InputLogin iconBootstrap="bi bi-person-badge" name="matricula" placeholder="Matrícula" type="text" required/>
                 <InputLogin iconBootstrap="bi bi-lock" name="password" placeholder="Senha" type="password" required/>
-                <InputLogin iconBootstrap="bi bi-lock" name="confirmaPassword" placeholder="Confirmar Senha" type="password" required/>
+                {/* <InputLogin iconBootstrap="bi bi-lock" name="confirmaPassword" placeholder="Confirmar Senha" type="password" required/> */}
               </div>
-              <ButtonSubmit 
-                text={isFormSubmitting ? "Carregando..." : "Cadastrar-se"}
-                disabled={isFormSubmitting}
-              />
-              {!values.nome && !values.cpf && !values.email && !values.instituicao && !values.perfil && !values.matricula && !values.password && !values.confirmaPassword && (
-                <span className='text-danger text-medium fs-6'>{error}</span>
-              )}
+              <div className='w-100 align-items-center d-flex flex-column'>
+                <ButtonSubmit 
+                  text={isFormSubmitting ? "Carregando..." : "Cadastrar-se"}
+                  disabled={isFormSubmitting}
+                />
+                {!values.nome && !values.cpf && !values.email && !values.instituicao && !values.perfil && !values.matricula && !values.password && !values.confirmaPassword && (
+                  <span className='text-danger text-medium fs-6'>{error}</span>
+                )}
+              </div>
             </Form>
           )
         }

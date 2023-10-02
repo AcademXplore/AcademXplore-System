@@ -68,24 +68,27 @@ export default function SignIn() {
       {
         ({values}) => {
           return(
-            <Form noValidate className='d-flex flex-column w-100 h-100 justify-content-between align-items-center mt-3 '>
+            <Form noValidate className='d-flex flex-column w-100 justify-content-between h-100 mt-3 '>
               <div className='w-100'>
                 <InputLogin iconBootstrap="bi bi-person" name="email" placeholder="Nome" type="email" required/>
                 <InputLogin iconBootstrap="bi bi-lock" name="password" placeholder="Senha" type="password" autoComplete="off" required/>
               </div>
-              <ButtonSubmit 
-                text={isFormSubmitting ? "Carregando..." : "Entrar"}
-                disabled={isFormSubmitting}
-              />
-              {!values.email && !values.password && error && (
-                <span className='text-danger text-medium fs-6'>{error}</span>
-              )}
+              <div className='w-100 align-items-center d-flex flex-column'>
+                <ButtonSubmit 
+                  text={isFormSubmitting ? "Carregando..." : "Entrar"}
+                  disabled={isFormSubmitting}
+                />
+                {!values.email && !values.password && error && (
+                  <span className='text-danger text-medium fs-6'>{error}</span>
+                )}
+                <button className='bg-transparent border border-0 text-light mt-3 text-decoration-underline'>Esqueceu a senha?</button>
+              </div>
             </Form>
           )
         }
       }
       </Formik>
-      <button className='bg-transparent border border-0 text-light mt-3 text-decoration-underline'>Esqueceu a senha?</button>
+      
     </main>
   );
 }
