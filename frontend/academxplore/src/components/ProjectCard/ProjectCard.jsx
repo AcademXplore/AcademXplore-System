@@ -45,6 +45,7 @@ export function ProjectCard({ id, title, banner, tags }) {
   const handleCandidatar = async () =>{
     setIsOpen(true)
     setIsLoadingEquipesCandidatura(true)
+    debugger
     const possuiCandidatura = await checkarSeJaCandidatou()
     if(possuiCandidatura){
       setIsLoadingEquipesCandidatura(false)

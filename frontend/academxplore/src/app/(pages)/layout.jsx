@@ -12,7 +12,6 @@ export default function RootLayout({ children }) {
   return (
     <LayoutAdmin>
       <NavContextProvider pathname={pathname}>
-
         <QueryClientProvider client={client}>
           <section className="min-vh-100" style={{backgroundColor: "#F3F3F3"}}>
             <Header />

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.academxplore.academxplore.models.Candidatura;
-import com.academxplore.academxplore.models.Projeto;
 
 public interface CandidaturaRepository extends JpaRepository<Candidatura, String>{
     @Query("SELECT c FROM Candidatura c JOIN c.projeto p WHERE p.id = ?1 AND c.status = 0")

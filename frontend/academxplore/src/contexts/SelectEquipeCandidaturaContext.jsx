@@ -16,7 +16,7 @@ export function SelectEquipeCandidaturaContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [equipes, setEquipes] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [projetoId, setProjetoId] = useState(false);
+  const [projetoId, setProjetoId] = useState("");
 
   return (
     <SelectEquipeCandidaturaContext.Provider value={{ isOpen, setIsOpen, equipes, setEquipes, isLoading, setIsLoading, projetoId, setProjetoId }}>

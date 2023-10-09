@@ -67,7 +67,7 @@ export function DialogFormProjeto(){
         const result = await res.json()
         debugger
         if(result.status === 201){
-          alert(result.message)
+          alert("Projeto criado com sucesso!")
           resetForm()
         }
         else{

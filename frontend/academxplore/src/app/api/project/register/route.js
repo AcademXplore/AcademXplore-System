@@ -7,7 +7,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function POST(req) {
   try {
-    debugger
+    debugger;
     const {
       banner,
       titulo,
@@ -49,13 +49,12 @@ export async function POST(req) {
         if (error) {
           return error.message;
         }
-        
-       return "SUCESSO";
-      
+
+        return "SUCESSO";
       }
     );
-    
-    const publicUrl =`https://storage.googleapis.com/academxplore-files/project-images/${fileName}`;
+
+    const publicUrl = `https://storage.googleapis.com/academxplore-files/project-images/${fileName}`;
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -80,7 +79,7 @@ export async function POST(req) {
       redirect: "follow",
     };
 
-    const res = await fetch(`${API_URL}/projeto/cadastro`, requestOptions)
+    const res = await fetch(`${API_URL}/projeto/cadastro`, requestOptions);
 
     if (res.status != 200) {
       return NextResponse.json({
