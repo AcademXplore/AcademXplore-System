@@ -1,10 +1,17 @@
 "use client"
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
+import { useSearchProjects } from "./useSearchProjects";
+import { useDeferredValue } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 
 export function useMyProjects(){
+
+  const {search} = useSearchProjects()
+
+  const searchDeferred = useDeferredValue(search)
+
   const {data: session} = useSession()  
 
   const PERFIL = session?.user.perfil.toLowerCase()
@@ -30,8 +37,21 @@ export function useMyProjects(){
     queryKey: ['myProjects']
   })
 
+  const filteredProjects = data?.filter(value => {
+    const project = PERFIL == "professor" ? value : value.projeto
+    let titulo = project.titulo.toLowerCase().includes(searchDeferred.toLowerCase())
+    let areasInteresse = false
+    for(let area of project.areasInteresse){
+      if(area.nome.toLowerCase().includes(searchDeferred.toLowerCase())){
+        areasInteresse = true
+        break
+      }
+    }
+    return titulo || areasInteresse
+  })
+
   return {
-    data: data,
+    data: filteredProjects,
     isLoading
   }
 }

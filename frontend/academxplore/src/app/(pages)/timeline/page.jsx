@@ -4,6 +4,7 @@ import { DialogFormProjeto } from "@/components/DialogFormProjeto/DialogFormProj
 import { ProjectList } from "@/components/ProjectList/ProjectList"
 import { SelectEquipeCandidatura } from "@/components/SelectEquipeCandidatura/SelectEquipeCandidatura"
 import { FormProductContextProvider } from "@/contexts/FormProductContext"
+import { SearchProjectsContextProvider } from "@/contexts/SearchProjectsContext"
 import { SelectEquipeCandidaturaContextProvider } from "@/contexts/SelectEquipeCandidaturaContext"
 
 import { useSession } from "next-auth/react"
@@ -20,7 +21,9 @@ export default function Timeline() {
         <main className="container position-relative h-100 d-flex flex-column">
           <DialogFormProjeto/>
           <SelectEquipeCandidatura/>
-          <ProjectList/>
+          <SearchProjectsContextProvider>
+            <ProjectList/>
+          </SearchProjectsContextProvider>
           {PERFIL == "professor" && <ButtonPlusFloat/>}
         </main>
       </SelectEquipeCandidaturaContextProvider>

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react"
 import { FormProductContextProvider } from "@/contexts/FormProductContext"
 import { MyProjectsList } from "@/components/MyProjectsList/MyProjectsList"
 import { DialogCandidaturaContextProvider } from "@/contexts/DialogCandidaturaContext"
+import { SearchProjectsContextProvider } from "@/contexts/SearchProjectsContext"
 
 export default function MyProject() {
   const {data: session} = useSession()
@@ -16,7 +17,9 @@ export default function MyProject() {
         <main className="container position-relative h-100 d-flex flex-column">
           <DialogFormProjeto/>
           <DialogCandidaturas/>
-          <MyProjectsList/>
+          <SearchProjectsContextProvider>
+            <MyProjectsList/>
+          </SearchProjectsContextProvider>
           {PERFIL == "professor" && <ButtonPlusFloat/>}
         </main>
       </DialogCandidaturaContextProvider>
