@@ -158,4 +158,29 @@ public class ProjetoService {
        throw new Exception(e.getMessage());
     }
   }
+
+  public void encerrarProjeto(String id) throws Exception {
+    try {
+      Optional<Projeto> projetoOptional = projetoRepository.findById(id);
+
+      if (projetoOptional.isPresent()) {
+        Projeto projeto = projetoOptional.get();
+
+        // Verifica se o projeto já está encerrado
+        if (projeto.getStatus() == Status.Inativo) {
+          throw new Exception("O projeto já está encerrado.");
+        }
+
+        // Define o status do projeto como inativo
+        projeto.setStatus(Status.Inativo);
+
+        // Salva o projeto no repositório para atualizar o status
+        projetoRepository.save(projeto);
+      } else {
+          throw new Exception("Projeto não encontrado com o ID indicado!");
+        }
+    } catch (Exception e) {
+        throw new Exception(e.getMessage());
+    }
+}
 }
