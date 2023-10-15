@@ -74,4 +74,14 @@ public class ProjetoController {
       return ResponseEntity.internalServerError().body(e.getMessage());
     }
   }
+
+  @PostMapping("/encerrar/{id}")
+  public ResponseEntity<Object> encerrarProjeto(@PathVariable("id") String id) {
+    try {
+      projetoService.encerrarProjeto(id);
+      return ResponseEntity.ok().body("Projeto encerrado com sucesso!");
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().body(e.getMessage());
+      }
+  }
 }
