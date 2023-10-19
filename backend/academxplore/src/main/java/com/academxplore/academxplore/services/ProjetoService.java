@@ -114,7 +114,7 @@ public class ProjetoService {
           Status.Ativo,
           cadastroResquest.recursosNecessarios());
       Optional<Usuario> coorientador = usuarioRepository.findByEmail(cadastroResquest.emailCoorientador());
-      if(coorientador.isPresent()){
+      if (coorientador.isPresent()) {
         projeto.setCoorientador(coorientador.get());
       }
       Optional<Usuario> professor = usuarioRepository.findById(cadastroResquest.professor());
@@ -146,16 +146,17 @@ public class ProjetoService {
       }
 
       String titulo = "Parabéns Novo Projeto";
-      String descricao = "Parabéns você criou um novo projeto de nome \""+ projetoCriado.getTitulo() + "\".";
+      String descricao = "Parabéns você criou um novo projeto de nome \"" + projetoCriado.getTitulo() + "\".";
       Date dataCriacao = new Date();
       TipoNotificacao tipoNotificacao = TipoNotificacao.CRIACAO;
       Status statusNotificacao = Status.Ativo;
 
-      Notificacao notificacaoProfessor = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao, statusNotificacao, projetoCriado, projetoCriado.getProfessor(), null);
+      Notificacao notificacaoProfessor = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao,
+          statusNotificacao, projetoCriado, projetoCriado.getProfessor(), null);
       notificacaoRepository.save(notificacaoProfessor);
 
     } catch (Exception e) {
-       throw new Exception(e.getMessage());
+      throw new Exception(e.getMessage());
     }
   }
 
@@ -177,10 +178,10 @@ public class ProjetoService {
         // Salva o projeto no repositório para atualizar o status
         projetoRepository.save(projeto);
       } else {
-          throw new Exception("Projeto não encontrado com o ID indicado!");
-        }
+        throw new Exception("Projeto não encontrado com o ID indicado!");
+      }
     } catch (Exception e) {
-        throw new Exception(e.getMessage());
+      throw new Exception(e.getMessage());
     }
-}
+  }
 }

@@ -14,7 +14,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
 public class JWTService {
-  @Value("${SECRET_KEY}")
+  @Value("SECRET_KEY")
   private String chavePrivadaJWT;
 
   public String gerarToken(Authentication authentication) {

@@ -36,16 +36,21 @@ export default function MyProjectDetails({ params }) {
     },
   ];
 
+  const handleEncerrarProjeto = () => {
+    alert("Encerrado")
+  }
+
   return (
     <NavDetailsProjectContextProvider>
       <main className="container-fluid position-relative h-100 d-flex flex-column">
         {isLoadingEquipes && isLoadingProject ? <Loading />
           :
         <div className="p-4 d-flex flex-column align-items-center ">
-          <Banner titulo={project?.titulo} banner={project?.banner} />
+          <Banner titulo={project?.titulo} banner={project?.banner} active={project?.status == "Inativo"} />
           <ButtonsMyProjectDetails/>
           <ParagraphsListUseContext paragraphs={paragraphs} />
           <EquipesListUseContext equipes={equipes}/>
+          {project?.status == "Ativo" && <button onClick={handleEncerrarProjeto} className="btn btn-danger col-3 mt-4">Encerrar Projeto</button>}
         </div>
         }
       </main>

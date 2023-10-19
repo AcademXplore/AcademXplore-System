@@ -21,7 +21,7 @@ export function useProject(project){
       
       return await fetch(`${API_URL}/projeto/detalhes/${project}`, requestOptions).then(res => res.json())
     },
-    queryKey: ['projectByID']
+    queryKey: ['projectByID', project]
   })
   return {
     data: data,

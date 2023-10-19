@@ -1,5 +1,6 @@
 package com.academxplore.academxplore.dto;
 
+import com.academxplore.academxplore.enums.Status;
 import com.academxplore.academxplore.models.Projeto;
 
 import lombok.Data;
@@ -13,9 +14,7 @@ public class ProjetoDetalhesDTO {
   private String objetivos;
   private String cronograma;
   private String recursosNecessarios;
-  // private UsuarioInformacoesBasicasDTO professor;
-  // private UsuarioInformacoesBasicasDTO coorientador;
-  // private List<UsuarioInformacoesBasicasDTO> alunos;
+  private Status status;
 
   public ProjetoDetalhesDTO(Projeto projeto) {
     this.id = projeto.getId();
@@ -25,18 +24,8 @@ public class ProjetoDetalhesDTO {
     this.objetivos = projeto.getObjetivos();
     this.cronograma = projeto.getCronograma();
     this.recursosNecessarios = projeto.getRecursosNecessarios();
-    // this.professor = UsuarioInformacoesBasicasDTO.mapUsuarioInformacoesBasicasDTO(projeto.getProfessor());
-    // this.coorientador = UsuarioInformacoesBasicasDTO.mapUsuarioInformacoesBasicasDTO(projeto.getCoorientador());
-    // pegarUsuario(projeto.getEquipes());
+    this.status = projeto.getStatus();
   }
-
-  // public void pegarUsuario(List<Equipe> equipes){
-  //   List<UsuarioInformacoesBasicasDTO> usuarios = new ArrayList<UsuarioInformacoesBasicasDTO>();
-  //   for(Equipe equipe : equipes){
-  //     usuarios.addAll(equipe.getUsuarios().stream().map(entity -> UsuarioInformacoesBasicasDTO.mapUsuarioInformacoesBasicasDTO(entity)).collect(Collectors.toList()));
-  //   }
-  //   this.alunos = usuarios;
-  // }
 
   public static ProjetoDetalhesDTO mapProjetoDetalhes(Projeto projeto){
     return new ProjetoDetalhesDTO(projeto);

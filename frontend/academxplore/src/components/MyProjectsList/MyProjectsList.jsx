@@ -21,8 +21,8 @@ export function MyProjectsList(){
     <>
       <SearchBarProject value={search} handleChange={setSearch}/>
       {PERFIL == "professor" ? 
-      data?.map(project => <ProjectCard key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} />) : 
-      data?.map(equipe => <ProjectCard key={equipe.projeto.id} id={equipe.projeto.id} title={equipe.projeto.titulo} banner={equipe.projeto.banner} tags={equipe.projeto.areasInteresse} />)}
+      data?.map(project => <ProjectCard key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} status={project.status}/>) : 
+      data?.map(equipe => <ProjectCard key={equipe.projeto.id} id={equipe.projeto.id} title={equipe.projeto.titulo} banner={equipe.projeto.banner} tags={equipe.projeto.areasInteresse} status={equipe.projeto.status}/>)}
     </>
   )
 }

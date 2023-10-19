@@ -9,8 +9,9 @@ import { IconCandidaturas } from "../IconCandidaturas";
 import { useDialogCandidatura } from "@/hooks/useDialogCandidatura";
 import { gerarNumeroAleatorio } from "@/utils/gerarNumeroAleatorio";
 import { useSelectEquipeCandidatura } from "@/hooks/useSelectEquipeCandidatura";
+import { Banner } from "../Banner";
 
-export function ProjectCard({ id, title, banner, tags }) {
+export function ProjectCard({ id, title, banner, tags, status }) {
   const {data: session} = useSession()
   const {isVisible, setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
   const {isOpen, setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
@@ -98,16 +99,7 @@ export function ProjectCard({ id, title, banner, tags }) {
       id={id}
       className="rounded-4 p-4 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center bg-light"
     >
-      <div className="rounded-3 w-100 overflow-hidden card card-image">
-        <Image alt={title}
-          className="card-img banner object-fit-cover "
-          fill
-          src={banner}
-        />
-        <div className="card-img-overlay d-flex col-6 ">
-          <h1 className="my-auto text-card-image">{title}</h1>
-        </div>
-      </div>
+      <Banner banner={banner} titulo={title} key={id} active={status == "Inativo"}/>
       <div className="w-100 d-flex justify-content-between pt-4 align-items-center">
         <div className="d-flex gap-3">
           {tags?.map((tag) => (
@@ -131,7 +123,7 @@ export function ProjectCard({ id, title, banner, tags }) {
         </div> 
         : 
         <div className="d-flex gap-3 ">
-          {PERFIL == "professor" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
+          {PERFIL == "professor" && status == "Ativo" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
           <Link className="btn-abrir-projeto" href={`/my-projects/${id}`} >Abrir Projeto</Link>
         </div>
         }

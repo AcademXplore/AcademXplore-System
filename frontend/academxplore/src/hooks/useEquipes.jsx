@@ -17,7 +17,7 @@ export function useEquipes(project){
       };
       return await fetch(`/api/project/equipes/${project}`, requestOptions).then(res => res.json())
     },
-    queryKey: ['equipesDoProjeto']
+    queryKey: ['equipesDoProjeto', project]
   })
   
   return {

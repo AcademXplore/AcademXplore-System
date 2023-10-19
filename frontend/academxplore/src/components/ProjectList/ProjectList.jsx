@@ -12,7 +12,7 @@ export function ProjectList(){
     <div className="h-100 w-100 d-flex flex-column">
       <SearchBarProject value={search} handleChange={setSearch}/>
       {isLoading && <Loading/>}
-      {data?.map(project => <ProjectCard key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} />)}
+      {data?.map(project => <ProjectCard key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} status={project.status}/>)}
     </div>
   )
 }
