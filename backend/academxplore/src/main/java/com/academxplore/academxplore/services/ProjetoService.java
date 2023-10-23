@@ -176,7 +176,31 @@ public class ProjetoService {
         projeto.setStatus(Status.Inativo);
 
         // Salva o projeto no repositório para atualizar o status
-        projetoRepository.save(projeto);
+        Projeto projetoEncerrado = projetoRepository.save(projeto);
+
+        String titulo = "Projeto Encerrado";
+        String descricao = "O projeto \"" + projetoEncerrado.getTitulo() + "\" foi encerrado.";
+        Date dataCriacao = new Date();
+        TipoNotificacao tipoNotificacao = TipoNotificacao.ENCERRAMENTO;
+        Status statusNotificacao = Status.Ativo;
+
+        // Criar notificação para o professor
+        Notificacao notificacaoProfessor = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao,
+            statusNotificacao, projetoEncerrado, projetoEncerrado.getProfessor(), null);
+        notificacaoRepository.save(notificacaoProfessor);
+
+        // Criar notificações para os alunos do projeto
+        for (Equipe equipe : projetoEncerrado.getEquipes()) {
+            List<Usuario> alunos = equipe.getUsuarios();
+
+            for(Usuario aluno : alunos ){
+              // Criar notificação para o aluno
+              Notificacao notificacaoAluno = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao,
+                  statusNotificacao, projetoEncerrado, aluno, null);
+              notificacaoRepository.save(notificacaoAluno);
+            }
+        }
+
       } else {
         throw new Exception("Projeto não encontrado com o ID indicado!");
       }
