@@ -28,7 +28,7 @@ public class Notificacao {
     private String descricao;
     @Column(nullable = false)
     private Date dataCriacao;
-    @Column(columnDefinition = "TINYINT(3)")
+    @Column(columnDefinition = "TINYINT(4)")
     private TipoNotificacao tipo;
     @Column(nullable = false)
     private Status status;
