@@ -7,9 +7,10 @@ import { NavDetailsProjectContextProvider } from "@/contexts/NavDetailsProjectCo
 import { ButtonsMyProjectDetails } from "@/components/ButtonsMyProjectDetails/ButtonsMyProjectDetails";
 import { ParagraphsListUseContext } from "@/components/ParagraphsListUseContext";
 import { EquipesListUseContext } from "@/components/EquipesListUseContext";
+import { useSession } from "next-auth/react";
 
 export default function MyProjectDetails({ params }) {
-  
+  const {data: session} = useSession();
   const { data: project, isLoading: isLoadingProject } = useProject(
     params.project
   );
@@ -37,7 +38,21 @@ export default function MyProjectDetails({ params }) {
   ];
 
   const handleEncerrarProjeto = () => {
-    alert("Encerrado")
+    const API_URL = process.env.NEXT_PUBLIC_API_URL
+    const idProjeto = params.project
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", session?.user?.accessToken);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${API_URL}/projeto/encerrar/${idProjeto}`, requestOptions)
+      .then(response => response.text())
+      .then(result => alert(result))
+      .catch(error => alert("Error: " + error));
   }
 
   return (
