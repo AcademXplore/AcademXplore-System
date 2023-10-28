@@ -14,6 +14,8 @@ import com.academxplore.academxplore.dto.CandidaturaDTO;
 import com.academxplore.academxplore.dto.ProjetoDetalhesDTO;
 import com.academxplore.academxplore.dto.ProjetoEquipesDTO;
 import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
+import com.academxplore.academxplore.dto.QuantidadeProjetosRequest;
+import com.academxplore.academxplore.enums.PerfilUsuario;
 import com.academxplore.academxplore.enums.Status;
 import com.academxplore.academxplore.enums.TipoNotificacao;
 import com.academxplore.academxplore.models.AreaInteresse;
@@ -204,6 +206,43 @@ public class ProjetoService {
       } else {
         throw new Exception("Projeto não encontrado com o ID indicado!");
       }
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  public QuantidadeProjetosRequest contarProjetosAtivosEInativosDoUsuario(String usuarioId) throws Exception {
+    try {
+      // Verificar se o usuário existe
+      Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new Exception("Usuário não encontrado com o ID indicado."));
+
+      // Lista de projetos ativos do usuário
+      QuantidadeProjetosRequest quantidade = new QuantidadeProjetosRequest();
+      if(usuario.getPerfil() == PerfilUsuario.PROFESSOR){
+        List<Projeto> projetoProfessor = usuario.getProjetosProfessor();
+        projetoProfessor.addAll(usuario.getProjetosCoorientador());
+        for(Projeto projeto : projetoProfessor){
+          if(projeto.getStatus() == Status.Ativo){
+            int projetoAtivo = quantidade.getProjetosAtivos();
+            quantidade.setProjetosAtivos(projetoAtivo++);
+          }
+          else if(projeto.getStatus() == Status.Inativo){
+            int projetoInativo = quantidade.getProjetosInativos();
+            quantidade.setProjetosInativos(projetoInativo++);
+          }
+        }
+      }
+
+      
+
+      return quantidade;
+      // Lista de projetos inativos do usuário
+      // List<Projeto> projetosInativos = projetoRepository.findById(usuarioId, Status.Inativo);
+
+      // int projetosAtivosCount = projetosAtivos.size();
+      // int projetosInativosCount = projetosInativos.size();
+
+      // return projetosAtivosCount + projetosInativosCount;
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
