@@ -193,14 +193,14 @@ public class ProjetoService {
 
         // Criar notificações para os alunos do projeto
         for (Equipe equipe : projetoEncerrado.getEquipes()) {
-            List<Usuario> alunos = equipe.getUsuarios();
+          List<Usuario> alunos = equipe.getUsuarios();
 
-            for(Usuario aluno : alunos ){
-              // Criar notificação para o aluno
-              Notificacao notificacaoAluno = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao,
-                  statusNotificacao, projetoEncerrado, aluno, null);
-              notificacaoRepository.save(notificacaoAluno);
-            }
+          for (Usuario aluno : alunos) {
+            // Criar notificação para o aluno
+            Notificacao notificacaoAluno = new Notificacao(titulo, descricao, dataCriacao, tipoNotificacao,
+                statusNotificacao, projetoEncerrado, aluno, null);
+            notificacaoRepository.save(notificacaoAluno);
+          }
         }
 
       } else {
@@ -214,35 +214,41 @@ public class ProjetoService {
   public QuantidadeProjetosRequest contarProjetosAtivosEInativosDoUsuario(String usuarioId) throws Exception {
     try {
       // Verificar se o usuário existe
-      Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new Exception("Usuário não encontrado com o ID indicado."));
+      Usuario usuario = usuarioRepository.findById(usuarioId)
+          .orElseThrow(() -> new Exception("Usuário não encontrado com o ID indicado."));
 
       // Lista de projetos ativos do usuário
       QuantidadeProjetosRequest quantidade = new QuantidadeProjetosRequest();
-      if(usuario.getPerfil() == PerfilUsuario.PROFESSOR){
+      if (usuario.getPerfil() == PerfilUsuario.PROFESSOR) {
         List<Projeto> projetoProfessor = usuario.getProjetosProfessor();
         projetoProfessor.addAll(usuario.getProjetosCoorientador());
-        for(Projeto projeto : projetoProfessor){
-          if(projeto.getStatus() == Status.Ativo){
+        for (Projeto projeto : projetoProfessor) {
+          if (projeto.getStatus() == Status.Ativo) {
             int projetoAtivo = quantidade.getProjetosAtivos();
-            quantidade.setProjetosAtivos(projetoAtivo++);
-          }
-          else if(projeto.getStatus() == Status.Inativo){
+            projetoAtivo++;
+            quantidade.setProjetosAtivos(projetoAtivo);
+          } else if (projeto.getStatus() == Status.Inativo) {
             int projetoInativo = quantidade.getProjetosInativos();
-            quantidade.setProjetosInativos(projetoInativo++);
+            projetoInativo++;
+            quantidade.setProjetosInativos(projetoInativo);
+          }
+        }
+      } else if (usuario.getPerfil() == PerfilUsuario.ALUNO) {
+        List<Equipe> equipes = usuario.getEquipes();
+        for (Equipe equipe : equipes) {
+          if (equipe.getProjeto().getStatus() == Status.Ativo) {
+            int projetoAtivo = quantidade.getProjetosAtivos();
+            projetoAtivo++;
+            quantidade.setProjetosAtivos(projetoAtivo);
+          } else if (equipe.getProjeto().getStatus() == Status.Inativo) {
+            int projetoInativo = quantidade.getProjetosInativos();
+            projetoInativo++;
+            quantidade.setProjetosInativos(projetoInativo);
           }
         }
       }
-
-      
-
       return quantidade;
-      // Lista de projetos inativos do usuário
-      // List<Projeto> projetosInativos = projetoRepository.findById(usuarioId, Status.Inativo);
-
-      // int projetosAtivosCount = projetosAtivos.size();
-      // int projetosInativosCount = projetosInativos.size();
-
-      // return projetosAtivosCount + projetosInativosCount;
+      
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
