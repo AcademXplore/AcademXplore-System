@@ -8,6 +8,7 @@ import * as Yup from 'yup'
 import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react";
+import { DialogInsertImage } from "@/components/DialogInsertImage/DialogInsertImage"
 
 export default function Profile() {
   const {data: session} = useSession()
@@ -15,6 +16,8 @@ export default function Profile() {
   const [isDisabled, setIsDisabled] = useState(true)
   const [isFormSubmitting, setFormSubmitting] = useState(false)
   const {data, isLoading} = useProfile(session?.user?.id, "profileByID")
+  const [isDialogInsertVisible, setIsDialogInsertVisible] = useState(false)
+  const [configDialog, setConfigDialog] = useState({tipo: ""})
 
   if (isLoading) {
     return (
@@ -79,7 +82,9 @@ export default function Profile() {
         "sobreVoce": values.sobreVoce,
         "formacao": values.formacao,
         "dataInicio": values.dataInicio,
-        "dataFim": values.dataFim
+        "dataFim": values.dataFim,
+        "foto": data?.foto,
+        "banner": data?.banner
       });
 
       var requestOptions = {
@@ -111,10 +116,16 @@ export default function Profile() {
     }, 3000)
   }
 
+  const handleInsertPhotoProfile = (tipo) =>{
+    setIsDialogInsertVisible(!isDialogInsertVisible)
+    setConfigDialog({tipo})
+  }
+
   return(
     <main className="container position-relative py-3 h-100 d-flex justify-content-center gap-4">
+      {isDialogInsertVisible && <DialogInsertImage tipo={configDialog.tipo} usuario={data} onClick={handleInsertPhotoProfile}/> }
       <div className="col-12 col-md-5 rounded-4 gap-2 border-1 border border-dark-subtle d-flex flex-column align-items-center bg-light overflow-hidden ">
-        <div className="w-100 bg-dark-subtle rounded-4 position-relative" style={{height: "259px"}}>
+        <div className="w-100 bg-dark-subtle rounded-4 position-relative" onClick={() => {handleInsertPhotoProfile("banner")}} style={{height: "259px", cursor: "pointer"}}>
           { data?.banner != null ?
             <Image className="w-100 h-100" src={data?.banner} fill/>
             :
@@ -124,14 +135,14 @@ export default function Profile() {
           }
         </div>
         <div className="position-relative w-100 " style={{height: '160px'}}>
-          <div className="rounded-circle border border-5 border-light position-absolute overflow-hidden start-50 top-75 translate-middle " style={{height: '160px', width: '160px'}}>
-          { data?.foto != null ?
-            <Image className="w-100 h-100 object-fit-fill" src={data?.foto} fill />
-            :
-            <div className="w-100 h-100 object-fit-fill bg-dark-subtle d-flex justify-content-center align-items-center ">
-              <i className="bi bi-camera fs-1"></i>
-            </div>
-          }            
+          <div className="rounded-circle border border-5 border-light position-absolute overflow-hidden start-50 top-75 translate-middle" onClick={() => {handleInsertPhotoProfile("foto")}} style={{height: '160px', width: '160px', cursor: "pointer"}}>
+            { data?.foto != null ?
+              <Image className="w-100 h-100 object-fit-fill" src={data?.foto} fill />
+              :
+              <div className="w-100 h-100 object-fit-fill bg-dark-subtle d-flex justify-content-center align-items-center ">
+                <i className="bi bi-camera fs-1"></i>
+              </div>
+            }            
           </div>
           <div className="position-absolute top-50 start-50 translate-middle-x d-flex flex-column align-items-center">
             <span className="fs-5 fw-semibold">{data?.nome}</span>

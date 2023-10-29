@@ -12,14 +12,8 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'storage.googleapis.com',
         port: '',
-        pathname: '/academxplore-files/project-images/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'www.google.com',
-        port: '',
-        pathname: '/**',
-      },
+        pathname: '/academxplore-files/**',
+      }
     ],
   },
 }
