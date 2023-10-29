@@ -1,9 +1,7 @@
 "use client"
 import { useSession } from "next-auth/react";
 import "./ProjectCard.css";
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { IconCandidaturas } from "../IconCandidaturas";
 import { useDialogCandidatura } from "@/hooks/useDialogCandidatura";
@@ -13,8 +11,8 @@ import { Banner } from "../Banner";
 
 export function ProjectCard({ id, title, banner, tags, status }) {
   const {data: session} = useSession()
-  const {isVisible, setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
-  const {isOpen, setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
+  const {setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
+  const {setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
   const pathname = usePathname();
 
   const PERFIL = session?.user.perfil.toLowerCase()
@@ -30,7 +28,6 @@ export function ProjectCard({ id, title, banner, tags, status }) {
       usuarioID: session?.user?.id,
       projetoID: id
     });
-
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -46,7 +43,6 @@ export function ProjectCard({ id, title, banner, tags, status }) {
   const handleCandidatar = async () =>{
     setIsOpen(true)
     setIsLoadingEquipesCandidatura(true)
-    debugger
     const possuiCandidatura = await checkarSeJaCandidatou()
     if(possuiCandidatura){
       setIsLoadingEquipesCandidatura(false)
@@ -116,10 +112,10 @@ export function ProjectCard({ id, title, banner, tags, status }) {
             </span>
           ))}
         </div>
-        {pathname == "/timeline" ?
+        {pathname == "/timeline" || pathname == "/candidaturas"?
         <div className="d-flex gap-3 ">
           <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
-          {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">Candidatar-se</div>}
+          {PERFIL == "aluno" && pathname == "/timeline" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">Candidatar-se</div>}
         </div> 
         : 
         <div className="d-flex gap-3 ">
