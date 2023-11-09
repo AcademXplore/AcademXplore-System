@@ -7,6 +7,7 @@ import { FormProductContextProvider } from "@/contexts/FormProductContext"
 import { MyProjectsList } from "@/components/MyProjectsList/MyProjectsList"
 import { DialogCandidaturaContextProvider } from "@/contexts/DialogCandidaturaContext"
 import { SearchProjectsContextProvider } from "@/contexts/SearchProjectsContext"
+import { Footer } from "@/components/Footer/Footer"
 
 export default function MyProject() {
   const {data: session} = useSession()
@@ -20,6 +21,7 @@ export default function MyProject() {
           <SearchProjectsContextProvider>
             <MyProjectsList/>
           </SearchProjectsContextProvider>
+          <Footer/>
           {PERFIL == "professor" && <ButtonPlusFloat/>}
         </main>
       </DialogCandidaturaContextProvider>

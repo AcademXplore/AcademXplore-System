@@ -6,8 +6,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import * as Yup from 'yup'
 import { signIn, useSession } from 'next-auth/react';
+import { ForgotPassword } from '@/components/ForgotPassword/ForgotPassword';
 
 export default function SignIn() {
+  const [isVisible, setIsVisible] = useState(false)
   const [error, setError] = useState("")
   const [isFormSubmitting, setFormSubmitting] = useState(false)
   const router = useRouter();
@@ -58,8 +60,15 @@ export default function SignIn() {
     }, 3000)
   }
 
+  const handleDialogForgotPassword = () => {
+    setIsVisible(!isVisible)
+  }
+
   return (
     <main className="d-flex flex-column w-100 h-100 ">
+      {isVisible &&
+      <ForgotPassword onClick={handleDialogForgotPassword}/>
+      }
       <Formik 
         validationSchema={validationSchema} 
         initialValues={initialValues}
@@ -81,7 +90,7 @@ export default function SignIn() {
                 {!values.email && !values.password && error && (
                   <span className='text-danger text-medium fs-6'>{error}</span>
                 )}
-                <button className='bg-transparent border border-0 text-light mt-3 text-decoration-underline'>Esqueceu a senha?</button>
+                <button className='bg-transparent border border-0 text-light mt-3 text-decoration-underline' onClick={handleDialogForgotPassword}>Esqueceu a senha?</button>
               </div>
             </Form>
           )
