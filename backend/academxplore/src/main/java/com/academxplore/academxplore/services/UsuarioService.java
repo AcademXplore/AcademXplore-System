@@ -92,6 +92,12 @@ public class UsuarioService {
       if (!Objects.equals(usuarioAtualizado.getDataFim(), usuario.getDataFim())) {
         usuarioAtualizado.setDataFim(usuario.getDataFim());
       }
+      if (!Objects.equals(usuarioAtualizado.getFoto(), usuario.getFoto())) {
+        usuarioAtualizado.setFoto(usuario.getFoto());
+      }
+      if (!Objects.equals(usuarioAtualizado.getBanner(), usuario.getBanner())) {
+        usuarioAtualizado.setBanner(usuario.getBanner());
+      }
 
       usuarioRepository.save(usuarioAtualizado);
 

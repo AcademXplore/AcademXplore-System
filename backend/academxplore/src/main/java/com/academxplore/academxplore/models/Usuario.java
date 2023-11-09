@@ -22,8 +22,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "usuarios")
 public class Usuario implements UserDetails{
 
@@ -73,7 +77,8 @@ public class Usuario implements UserDetails{
     inverseJoinColumns = {@JoinColumn(name = "equipe_id", referencedColumnName = "id")}
   )
   private List<Equipe> equipes;
- 
+  private String foto; 
+  private String banner; 
   
   
   public Usuario(){}
@@ -114,133 +119,7 @@ public class Usuario implements UserDetails{
     this.dataInicio = usuario.getDataInicio();
     this.dataFim = usuario.getDataFim();
   }
-  public String getId() {
-    return id;
-  }
-  public void setId(String id) {
-    this.id = id;
-  }
-  public String getNome() {
-    return nome;
-  }
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-  public String getCpf() {
-    return cpf;
-  }
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
-  }
-  public String getEmail() {
-    return email;
-  }
-  public void setEmail(String email) {
-    this.email = email;
-  }
-  public String getInstituicao() {
-    return instituicao;
-  }
-  public void setInstituicao(String instituicao) {
-    this.instituicao = instituicao;
-  }
-  public PerfilUsuario getPerfil() {
-    return perfil;
-  }
-  public void setPerfil(PerfilUsuario perfil) {
-    this.perfil = perfil;
-  }
-  public String getMatricula() {
-    return matricula;
-  }
-  public void setMatricula(String matricula) {
-    this.matricula = matricula;
-  }
-  public String getSenha() {
-    return senha;
-  }
-  public void setSenha(String senha) {
-    this.senha = senha;
-  }
-  public String getLattes() {
-    return lattes;
-  }
-  public void setLattes(String lattes) {
-    this.lattes = lattes;
-  }
-  public String getLinkedin() {
-    return linkedin;
-  }
-  public void setLinkedin(String linkedin) {
-    this.linkedin = linkedin;
-  }
-  public String getTelefone() {
-    return telefone;
-  }
-  public void setTelefone(String telefone) {
-    this.telefone = telefone;
-  }
-  public String getCurso() {
-    return curso;
-  }
-  public void setCurso(String curso) {
-    this.curso = curso;
-  }
-  public String getSobreVoce() {
-    return sobreVoce;
-  }
-  public void setSobreVoce(String sobreVoce) {
-    this.sobreVoce = sobreVoce;
-  }
-  public String getFormacao() {
-    return formacao;
-  }
-  public void setFormacao(String formacao) {
-    this.formacao = formacao;
-  }
-  public Date getDataInicio() {
-    return dataInicio;
-  }
-  public void setDataInicio(Date dataInicio) {
-    this.dataInicio = dataInicio;
-  }
-  public Date getDataFim() {
-    return dataFim;
-  }
-  public void setDataFim(Date dataFim) {
-    this.dataFim = dataFim;
-  }
-  public List<Projeto> getProjetosProfessor() {
-    return projetosProfessor;
-  }
-  public void setProjetosProfessor(List<Projeto> projetosProfessor) {
-    this.projetosProfessor = projetosProfessor;
-  }
-   public List<Projeto> getProjetosCoorientador() {
-    return projetosCoorientador;
-  }
-  public void setProjetosCoorientador(List<Projeto> projetosCoorientador) {
-    this.projetosCoorientador = projetosCoorientador;
-  }
-  
-  public List<Candidatura> getCandidaturas() {
-    return candidaturas;
-  }
-  public void setCandidaturas(List<Candidatura> candidaturas) {
-    this.candidaturas = candidaturas;
-  }
-  public List<Notificacao> getNotificacoes() {
-    return notificacoes;
-  }
-  public void setNotificacoes(List<Notificacao> notificacoes) {
-    this.notificacoes = notificacoes;
-  }
-  public List<Equipe> getEquipes() {
-    return equipes;
-  }
-  public void setEquipes(List<Equipe> equipes) {
-    this.equipes = equipes;
-  }
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     if(this.perfil == PerfilUsuario.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_PROFESSOR"), new SimpleGrantedAuthority("ROLE_ALUNO"));

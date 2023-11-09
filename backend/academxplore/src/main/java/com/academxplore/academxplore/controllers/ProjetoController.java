@@ -84,4 +84,13 @@ public class ProjetoController {
         return ResponseEntity.internalServerError().body(e.getMessage());
       }
   }
+
+  @GetMapping("/quantidade/{id}")
+  public ResponseEntity<Object> contarProjetosAtivosEInativosDoUsuario(@PathVariable("id") String id) {
+    try {
+      return ResponseEntity.ok().body(projetoService.contarProjetosAtivosEInativosDoUsuario(id));
+    } catch (Exception e) {
+        return ResponseEntity.internalServerError().body(e.getMessage());
+      }
+  }
 }

@@ -1,9 +1,7 @@
 "use client"
 import { useSession } from "next-auth/react";
 import "./ProjectCard.css";
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { IconCandidaturas } from "../IconCandidaturas";
 import { useDialogCandidatura } from "@/hooks/useDialogCandidatura";
@@ -11,10 +9,10 @@ import { gerarNumeroAleatorio } from "@/utils/gerarNumeroAleatorio";
 import { useSelectEquipeCandidatura } from "@/hooks/useSelectEquipeCandidatura";
 import { Banner } from "../Banner";
 
-export function ProjectCard({ id, title, banner, tags, status }) {
+export function ProjectCard({ id, title, banner, tags, status, isLoading }) {
   const {data: session} = useSession()
-  const {isVisible, setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
-  const {isOpen, setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
+  const {setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
+  const {setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
   const pathname = usePathname();
 
   const PERFIL = session?.user.perfil.toLowerCase()
@@ -30,7 +28,6 @@ export function ProjectCard({ id, title, banner, tags, status }) {
       usuarioID: session?.user?.id,
       projetoID: id
     });
-
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
@@ -46,7 +43,6 @@ export function ProjectCard({ id, title, banner, tags, status }) {
   const handleCandidatar = async () =>{
     setIsOpen(true)
     setIsLoadingEquipesCandidatura(true)
-    debugger
     const possuiCandidatura = await checkarSeJaCandidatou()
     if(possuiCandidatura){
       setIsLoadingEquipesCandidatura(false)
@@ -99,34 +95,56 @@ export function ProjectCard({ id, title, banner, tags, status }) {
       id={id}
       className="rounded-4 p-4 border-1 border mt-3 border-dark-subtle d-flex flex-column align-items-center bg-light"
     >
-      <Banner banner={banner} titulo={title} key={id} active={status == "Inativo"}/>
+      
+      <Banner banner={banner} titulo={title} key={id} active={status == "Inativo"} isLoading={isLoading}/>
       <div className="w-100 d-flex justify-content-between pt-4 align-items-center">
         <div className="d-flex gap-3">
-          {tags?.map((tag) => (
+          {
+            isLoading ? 
             <span
-              className="py-1 px-3 fw-medium text-light"
+              className="py-2 px-3 fw-medium text-light d-flex align-items-center "
               style={{
                 background: ` linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),rgb(${gerarNumeroAleatorio()}, ${gerarNumeroAleatorio()}, ${gerarNumeroAleatorio()})`,
                 fontSize: "12px",
                 cursor: "default"
               }}
-              key={tag.id}
             >
-              {tag.nome}
+              <span class="placeholder" style={{width: "70px"}}></span>
             </span>
-          ))}
+            :
+            tags?.map((tag) => (
+              <span
+                className="py-1 px-3 fw-medium text-light"
+                style={{
+                  background: ` linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),rgb(${gerarNumeroAleatorio()}, ${gerarNumeroAleatorio()}, ${gerarNumeroAleatorio()})`,
+                  fontSize: "12px",
+                  cursor: "default"
+                }}
+                key={tag.id}
+              >
+                {tag.nome}
+              </span>
+            ))
+          }
         </div>
-        {pathname == "/timeline" ?
+        
         <div className="d-flex gap-3 ">
-          <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
-          {PERFIL == "aluno" && <div className="btn-candidatar" onClick={handleCandidatar} type="button">Candidatar-se</div>}
-        </div> 
-        : 
-        <div className="d-flex gap-3 ">
-          {PERFIL == "professor" && status == "Ativo" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
-          <Link className="btn-abrir-projeto" href={`/my-projects/${id}`} >Abrir Projeto</Link>
-        </div>
+        {
+          isLoading ?
+            <a class="btn-abrir-projeto placeholder" aria-disabled="true">Carregando...</a>
+          :
+          (pathname == "/timeline" || pathname == "/candidaturas")?
+            <>
+              <Link className="btn-entenda-mais" href={`/project-details/${id}`} >Entender mais</Link>
+              {PERFIL == "aluno" && pathname == "/timeline" && <button className="btn-candidatar" onClick={handleCandidatar} type="button">Candidatar-se</button>}
+            </>
+          : 
+            <>
+              {PERFIL == "professor" && status == "Ativo" && <IconCandidaturas className="align-self-center" onClick={() => openDialogCandidaturas()}/>}
+              <Link className="btn-abrir-projeto" href={`/my-projects/${id}`} >Abrir Projeto</Link>
+            </>          
         }
+        </div>
       </div>
     </div>
   );

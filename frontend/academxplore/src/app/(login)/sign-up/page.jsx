@@ -29,7 +29,8 @@ export default function SignUp() {
     instituicao: "",
     perfil: 0,
     matricula: "",
-    password: ""
+    password: "",
+    confirmaPassword: ""
   }
  
   const validationSchema = Yup.object().shape({
@@ -41,7 +42,10 @@ export default function SignUp() {
     instituicao: Yup.string().required("O campo Intituição é obrigatório"),
     perfil: Yup.string().test('test-invalid-option','Opção inválida', (option) => optionIsValid(option)).required("O campo Perfil é obrigatório"),
     matricula: Yup.string().required("O campo matricula é obrigatório"),
-    password: Yup.string().required("O campo senha é obrigatório")
+    password: Yup.string().required("O campo senha é obrigatório"),
+    confirmaPassword: Yup.string()
+      .required('O campo confirmação de senha é obrigatório')
+      .oneOf([Yup.ref('password')], 'As senhas devem corresponder')
   })
 
   const handleSubmit = async (values, {resetForm}) => {
@@ -115,7 +119,7 @@ export default function SignUp() {
                 <InputLogin iconBootstrap="bi bi-person-video3" name="perfil" options={options} type="select" required/>
                 <InputLogin iconBootstrap="bi bi-person-badge" name="matricula" placeholder="Matrícula" type="text" required/>
                 <InputLogin iconBootstrap="bi bi-lock" name="password" placeholder="Senha" type="password" required/>
-                {/* <InputLogin iconBootstrap="bi bi-lock" name="confirmaPassword" placeholder="Confirmar Senha" type="password" required/> */}
+                <InputLogin iconBootstrap="bi bi-lock" name="confirmaPassword" placeholder="Confirmar Senha" type="password" required/>
               </div>
               <div className='w-100 align-items-center d-flex flex-column'>
                 <ButtonSubmit 

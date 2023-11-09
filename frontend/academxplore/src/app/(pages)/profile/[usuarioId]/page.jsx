@@ -2,6 +2,7 @@
 import { InputProfile } from "@/components/InputProfile/InputProfile"
 import { Loading } from "@/components/Loading/Loading"
 import { useProfile } from "@/hooks/useProfile"
+import { useQuantidadeProjetos } from "@/hooks/useQuantidadeProjetos"
 import { Form, Formik } from "formik"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
@@ -18,7 +19,8 @@ export default function ProfileUserById({params}){
   }, [session, params])
   const {data, isLoading} = useProfile(params.usuarioId, "profileOtherUserByID")
   const [isDisabled, setIsDisabled] = useState(true)
-  if (isLoading) {
+  const {data: dataQuantidadeProjetos, isLoading: isLoadingQuantidadeProjetos} = useQuantidadeProjetos(params.usuarioId)
+  if (isLoading && isLoadingQuantidadeProjetos) {
     return (
       <Loading/>
     )
@@ -42,11 +44,23 @@ export default function ProfileUserById({params}){
     <main className="container position-relative py-3 h-100 d-flex justify-content-center gap-4">
       <div className="col-12 col-md-5 rounded-4 gap-2 border-1 border border-dark-subtle d-flex flex-column align-items-center bg-light overflow-hidden ">
         <div className="w-100 bg-dark-subtle rounded-4 position-relative" style={{height: "259px"}}>
-          <Image className="w-100 h-100" src="https://img.freepik.com/fotos-gratis/pessoas-em-reuniao-de-negocios-em-alto-angulo_23-2148911819.jpg?w=740&t=st=1695514500~exp=1695515100~hmac=18634a8c4afe9fbd551b25fe487feb51403b7566027e6bf19b960b1efcd097f7" fill/>
+        { data?.banner != null ?
+            <Image className="w-100 h-100" src={data?.banner} fill/>
+            :
+            <div className="w-100 h-100 bg-dark-subtle d-flex justify-content-center align-items-center ">
+              <i className="bi bi-image fs-1"></i>
+            </div>
+          }
         </div>
         <div className="position-relative w-100 " style={{height: '160px'}}>
           <div className="rounded-circle border border-5 border-light position-absolute overflow-hidden start-50 top-75 translate-middle " style={{height: '160px', width: '160px'}}>
-            <Image className="w-100 h-100 object-fit-fill" src="https://img.freepik.com/fotos-gratis/pessoas-em-reuniao-de-negocios-em-alto-angulo_23-2148911819.jpg?w=740&t=st=1695514500~exp=1695515100~hmac=18634a8c4afe9fbd551b25fe487feb51403b7566027e6bf19b960b1efcd097f7" fill />
+          { data?.foto != null ?
+            <Image className="w-100 h-100 object-fit-fill" src={data?.foto} fill />
+            :
+            <div className="w-100 h-100 object-fit-fill bg-dark-subtle d-flex justify-content-center align-items-center ">
+              <i className="bi bi-camera fs-1"></i>
+            </div>
+          }
           </div>
           <div className="position-absolute top-50 start-50 translate-middle-x d-flex flex-column align-items-center">
             <span className="fs-5 fw-semibold">{data?.nome}</span>
@@ -56,12 +70,12 @@ export default function ProfileUserById({params}){
         <hr className="w-100" />
         <div className="d-flex justify-content-evenly w-100">
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosInativos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Concluídos</span>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosAtivos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Ativos</span>
           </div>

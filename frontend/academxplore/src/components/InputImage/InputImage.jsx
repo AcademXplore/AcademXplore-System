@@ -18,7 +18,7 @@ export function InputImage({name, setFieldValue, ...props}){
   return (
     <>
       <div className="input-image d-flex justify-content-center py-5" style={{backgroundImage: `url("${image}")`}}>
-        <label className="label-banner" for="file">Adicione uma imagem</label>
+        <label className="label-banner" htmlFor="file">Adicione uma imagem</label>
         <Field id="file" type="file" accept="image/jpeg" onInput={(e) => handleInput(e)} value={undefined} name={name} {...props}/>
       </div>
       <div className="text-danger fw-medium" style={{fontSize: "12px"}}>

@@ -1,5 +1,6 @@
 package com.academxplore.academxplore.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.academxplore.academxplore.dto.ProjetoTimelineDTO;
 import com.academxplore.academxplore.enums.Status;
 import com.academxplore.academxplore.enums.TipoNotificacao;
 import com.academxplore.academxplore.models.Candidatura;
@@ -154,6 +156,23 @@ public class CandidaturaService {
             else{
                 return true;
             }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public List<ProjetoTimelineDTO> buscarCandidaturasDoUsuario(String usuarioId) throws Exception {
+      try {
+            Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new Exception("Usuário não encontrado com o ID indicado."));
+            List<Candidatura> candidaturas = usuario.getCandidaturas();
+            List<ProjetoTimelineDTO> projetos = new ArrayList<ProjetoTimelineDTO>();
+            for(Candidatura candidatura : candidaturas){
+                if(candidatura.getStatus() == Status.Ativo){
+                    projetos.add(ProjetoTimelineDTO.mapProjetoTimeline(candidatura.getProjeto()));
+                }
+            }
+            return projetos;
+
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }

@@ -24,9 +24,11 @@ public class UsuarioDTO {
   private String formacao;
   private Date dataInicio;
   private Date dataFim;
+  private String foto;
+  private String banner;
   public UsuarioDTO(String id, String nome, String cpf, String email, String instituicao, PerfilUsuario perfil,
       String matricula, String lattes, String linkedin, String telefone, String curso, String sobreVoce,
-      String formacao, Date dataInicio, Date dataFim) {
+      String formacao, Date dataInicio, Date dataFim, String banner, String foto) {
     this.id = id;
     this.nome = nome;
     this.cpf = cpf;
@@ -42,6 +44,8 @@ public class UsuarioDTO {
     this.formacao = formacao;
     this.dataInicio = dataInicio;
     this.dataFim = dataFim;
+    this.foto = foto;
+    this.banner = banner;
   }
   public UsuarioDTO() {
   }
@@ -61,6 +65,8 @@ public class UsuarioDTO {
     this.formacao = usuario.getFormacao();
     this.dataInicio = usuario.getDataInicio();
     this.dataFim = usuario.getDataFim();
+    this.foto = usuario.getFoto();
+    this.banner = usuario.getBanner();
   }
   
 }

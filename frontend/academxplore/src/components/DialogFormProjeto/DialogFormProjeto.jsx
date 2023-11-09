@@ -4,7 +4,6 @@ import { InputImage } from "../InputImage/InputImage"
 import { InputFormProject } from "../InputFormProject/InputFormProject"
 import { useState } from "react";
 import ButtonSubmitProject from "../ButtonSubmitProject/ButtonSubmitProject";
-import { useRouter } from "next/navigation";
 import * as Yup from 'yup'
 import { InputTags } from "../InputTags/InputTags";
 import { useSession } from "next-auth/react";

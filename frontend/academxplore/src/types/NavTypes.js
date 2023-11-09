@@ -2,5 +2,6 @@ export const NavTypes = {
   timeline: "/timeline",
   myProjects: "/my-projects",
   notifications: "/notifications",
-  profile: "/profile"
+  profile: "/profile",
+  candidaturas: "/candidaturas"
 }
