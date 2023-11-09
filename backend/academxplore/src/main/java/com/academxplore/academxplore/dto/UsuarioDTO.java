@@ -65,7 +65,7 @@ public class UsuarioDTO {
     this.formacao = usuario.getFormacao();
     this.dataInicio = usuario.getDataInicio();
     this.dataFim = usuario.getDataFim();
-     this.foto = usuario.getFoto();
+    this.foto = usuario.getFoto();
     this.banner = usuario.getBanner();
   }
   

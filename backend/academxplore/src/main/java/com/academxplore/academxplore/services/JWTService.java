@@ -22,14 +22,14 @@ public class JWTService {
 
       Usuario usuario = (Usuario) authentication.getPrincipal();
   
-      Date dataAtual = new Date();
-      int tempoExpiracao = 86400000; // 1 dia em milisegundos
-      Date dataExpiracao = new Date(new Date().getTime() + tempoExpiracao);
+      // Date dataAtual = new Date();
+      // int tempoExpiracao = 86400000; // 1 dia em milisegundos
+      // Date dataExpiracao = new Date(new Date().getTime() + tempoExpiracao);
       Algorithm algorithm = Algorithm.HMAC256(chavePrivadaJWT);
       String token = JWT.create()
                       .withSubject(usuario.getId())
-                      .withIssuedAt(dataAtual)
-                      .withExpiresAt(dataExpiracao)
+                      // .withIssuedAt(dataAtual)
+                      // .withExpiresAt(dataExpiracao)
                       .sign(algorithm);
       return token;
     }catch(Exception e){

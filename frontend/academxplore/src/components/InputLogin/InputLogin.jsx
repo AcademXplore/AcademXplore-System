@@ -16,10 +16,10 @@ export default function InputLogin({iconBootstrap, type, name, required, options
           {options.map(option => <option key={option.value} className="option-text" value={option.value}>{option.texto}</option>)}
         </Field>
         }
-        {required && <i className="position-absolute end-0 top-50 text-danger bi bi-asterisk" style={{fontSize: "8px", transform: "translateY(-50%)"}}></i>}
+        {required && <i className="position-absolute end-0 top-50 text-light bi bi-asterisk" style={{fontSize: "8px", transform: "translateY(-50%)"}}></i>}
        
       </div>
-      <div className="text-danger fw-medium" style={{fontSize: "12px"}}>
+      <div className="text-light fw-medium" style={{fontSize: "12px"}}>
         <ErrorMessage name={name}/>
       </div>
     </>

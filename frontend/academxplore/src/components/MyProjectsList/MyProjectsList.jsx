@@ -11,18 +11,18 @@ export function MyProjectsList(){
   const {data, isLoading} = useMyProjects();
   const PERFIL = session?.user.perfil.toLowerCase()
 
-  if (isLoading) {
-    return (
-      <Loading/>
-    )
-  }
-
   return(
     <>
       <SearchBarProject value={search} handleChange={setSearch}/>
-      {PERFIL == "professor" ? 
-      data?.map(project => <ProjectCard key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} status={project.status}/>) : 
-      data?.map(equipe => <ProjectCard key={equipe.projeto.id} id={equipe.projeto.id} title={equipe.projeto.titulo} banner={equipe.projeto.banner} tags={equipe.projeto.areasInteresse} status={equipe.projeto.status}/>)}
+      {
+        isLoading ?
+          <ProjectCard isLoading={isLoading}/>
+        :
+        PERFIL == "professor" ? 
+          data?.map(project => <ProjectCard isLoading={isLoading} key={project.id} id={project.id} title={project.titulo} banner={project.banner} tags={project.areasInteresse} status={project.status}/>) 
+          : 
+          data?.map(equipe => <ProjectCard isLoading={isLoading} key={equipe.projeto.id} id={equipe.projeto.id} title={equipe.projeto.titulo} banner={equipe.projeto.banner} tags={equipe.projeto.areasInteresse} status={equipe.projeto.status}/>)
+      }
     </>
   )
 }

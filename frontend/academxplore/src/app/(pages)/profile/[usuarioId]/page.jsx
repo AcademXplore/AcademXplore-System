@@ -2,6 +2,7 @@
 import { InputProfile } from "@/components/InputProfile/InputProfile"
 import { Loading } from "@/components/Loading/Loading"
 import { useProfile } from "@/hooks/useProfile"
+import { useQuantidadeProjetos } from "@/hooks/useQuantidadeProjetos"
 import { Form, Formik } from "formik"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
@@ -18,7 +19,8 @@ export default function ProfileUserById({params}){
   }, [session, params])
   const {data, isLoading} = useProfile(params.usuarioId, "profileOtherUserByID")
   const [isDisabled, setIsDisabled] = useState(true)
-  if (isLoading) {
+  const {data: dataQuantidadeProjetos, isLoading: isLoadingQuantidadeProjetos} = useQuantidadeProjetos(params.usuarioId)
+  if (isLoading && isLoadingQuantidadeProjetos) {
     return (
       <Loading/>
     )
@@ -68,12 +70,12 @@ export default function ProfileUserById({params}){
         <hr className="w-100" />
         <div className="d-flex justify-content-evenly w-100">
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosInativos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Concluídos</span>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosAtivos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Ativos</span>
           </div>

@@ -9,6 +9,7 @@ import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { signOut } from "next-auth/react";
 import { DialogInsertImage } from "@/components/DialogInsertImage/DialogInsertImage"
+import { useQuantidadeProjetos } from "@/hooks/useQuantidadeProjetos"
 
 export default function Profile() {
   const {data: session} = useSession()
@@ -18,8 +19,9 @@ export default function Profile() {
   const {data, isLoading} = useProfile(session?.user?.id, "profileByID")
   const [isDialogInsertVisible, setIsDialogInsertVisible] = useState(false)
   const [configDialog, setConfigDialog] = useState({tipo: ""})
+  const {data: dataQuantidadeProjetos, isLoading: isLoadingQuantidadeProjetos} = useQuantidadeProjetos(session?.user?.id)
 
-  if (isLoading) {
+  if (isLoading && isLoadingQuantidadeProjetos) {
     return (
       <Loading/>
     )
@@ -152,12 +154,12 @@ export default function Profile() {
         <hr className="w-100" />
         <div className="d-flex justify-content-evenly w-100">
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosInativos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Concluídos</span>
           </div>
           <div className="d-flex flex-column align-items-center">
-            <span className="fw-semibold fs-4">2</span>
+            <span className="fw-semibold fs-4">{dataQuantidadeProjetos?.projetosAtivos}</span>
             <span className="text-dark-emphasis">Projetos</span>
             <span className="text-dark-emphasis">Ativos</span>
           </div>

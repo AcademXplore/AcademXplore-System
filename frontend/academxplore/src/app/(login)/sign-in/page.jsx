@@ -79,7 +79,7 @@ export default function SignIn() {
                   disabled={isFormSubmitting}
                 />
                 {!values.email && !values.password && error && (
-                  <span className='text-danger text-medium fs-6'>{error}</span>
+                  <span className='text-light text-medium fs-6'>{error}</span>
                 )}
                 <button className='bg-transparent border border-0 text-light mt-3 text-decoration-underline'>Esqueceu a senha?</button>
               </div>
