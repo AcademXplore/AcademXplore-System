@@ -8,7 +8,7 @@ export function ButtonPlusFloat(){
     setIsVisible(!isVisible)
   }
   return(
-    <button className="button-plus-float" onClick={handleAbrirDialogo}>
+    <button className="button-plus-float z-3" onClick={handleAbrirDialogo}>
       <i className="bi bi-plus"></i>
     </button>
   )

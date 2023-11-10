@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.colorText}>Testesdfsdfsdf</Text>
+      <Text style={styles.colorText}>Dani top, Gabriel calvo</Text>
       <StatusBar style="inverted"/>
     </View>
   );
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   colorText: {
-    color: "#fff",
+    color: "blue",
     fontWeight: 'bold',
     fontSize: 32
   }
