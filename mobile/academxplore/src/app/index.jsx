@@ -3,6 +3,7 @@ import { Link } from "expo-router";
 import { HomeScreen } from '@/src/components/HomeScreen';
 
 export default function Home(){
+  
   return (
     <HomeScreen>
       <View style={styles.containerText}>
@@ -46,32 +47,32 @@ export default function Home(){
 
 const styles = StyleSheet.create({
   containerText: {
-    flex: 6,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center"
   },
   title: {
     textAlign: "center",
     fontFamily: 'Poppins-Bold',
-    fontSize: 48,
+    fontSize: 32,
     color: "#fff"
   },
   subtitle: {
     textAlign: "center",
     fontFamily: 'Poppins-ExtraLight',
-    fontSize: 40,
+    fontSize: 26,
     color: "#fff",
     marginTop: -14
   },
   paragraph: {
     textAlign: "center",
     fontFamily: 'Poppins-ExtraLight',
-    fontSize: 24,
+    fontSize: 20,
     color: "#fff",
     marginTop: 24
   },
   containerButtons: {
-    flex: 2,
+    flex: 1,
     paddingHorizontal: 40,
     justifyContent: 'center',
     gap: 28
