@@ -2,8 +2,21 @@ import {createContext, useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import * as SecureStore from 'expo-secure-store'
 
+const TOKEN_KEY = "my-jwt"
 const API_URL = process.env.EXPO_PUBLIC_API_URL
-const AuthContext = createContext({})
+const AuthContext = createContext({
+  onRegister: async () => {},
+  onLogin: async () => {},
+  onLogout: async () => {},
+  authState: {
+    user: {
+      id: null,
+      perfil: null,
+      accessToken: null
+    },
+    authenticated: null
+  }
+})
 
 export const useAuth = () => {
   return useContext(AuthContext)
@@ -18,6 +31,24 @@ export function AuthContextProvider({children}){
     },
     authenticated: null
   })
+
+  useEffect(() => {
+    const loadToken = async () => {
+      const token = await SecureStore.getItemAsync(TOKEN_KEY)
+      console.log("stored:", token)
+
+      if(token){
+        axios.defaults.headers.common.Authorization = token
+        
+        setAuthState({
+          user: {
+            accessToken: token
+          },
+          authenticated: true
+        })
+      }
+    }
+  },[SecureStore, TOKEN_KEY, axios, setAuthState])
 
   const register = async (nome, cpf, email, instituicao, perfil, matricula, senha) => {
     try {
