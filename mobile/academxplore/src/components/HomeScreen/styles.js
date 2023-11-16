@@ -8,8 +8,7 @@ export const styles = StyleSheet.create({
   bgImage: {
     flex: 1,
     flexDirection: 'column',
-    padding: 40,
-    paddingTop: 60,
+    padding: 40
   },
   containerLogo: {
     flex: 1,

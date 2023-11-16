@@ -47,9 +47,9 @@ export default function Home(){
 
 const styles = StyleSheet.create({
   containerText: {
-    flex: 2,
+    flex: 6,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "flex-start"
   },
   title: {
     textAlign: "center",
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     marginTop: 24
   },
   containerButtons: {
-    flex: 1,
+    flex: 3,
     paddingHorizontal: 40,
     justifyContent: 'center',
     gap: 28

@@ -1,20 +1,23 @@
 import { HomeScreen } from "@/src/components/HomeScreen";
-import { Slot } from "expo-router";
+import { SwitchLogin } from "@/src/components/SwitchLogin";
+import { SwitchContextProvider } from "@/src/contexts/switch-context";
+import { Slot, usePathname } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function LayoutAuth(){
+  const pathname = usePathname()
   return(
-    <HomeScreen>
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.text}>Simple and Better</Text>
+    <SwitchContextProvider pathname={pathname}>
+      <HomeScreen>
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.text}>Simple and Better</Text>
+          </View>
+          <SwitchLogin/>
+          <Slot/>
         </View>
-        <View>
-          {/*Botões de criar conta e login adicionar, de preferencia criar component separado*/}
-        </View>
-        <Slot/>
-      </View>
-    </HomeScreen>
+      </HomeScreen>
+    </SwitchContextProvider>
   )
 }
 
@@ -28,5 +31,5 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 32,
     textAlign: 'center',
-  },
+  }
 });
