@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 32,
     color: "#fff"
   },
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   paragraph: {
     textAlign: "center",
-    fontFamily: 'Poppins-ExtraLight',
+    fontFamily: 'Poppins-Light',
     fontSize: 20,
     color: "#fff",
     marginTop: 24

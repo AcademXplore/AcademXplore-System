@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
   },
   containerLogo: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 20
   },
 })

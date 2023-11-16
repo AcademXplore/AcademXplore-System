@@ -1,11 +1,11 @@
 import {StyleSheet, Text, View} from "react-native";
 import { HomeScreen } from '@/src/components/HomeScreen';
 
-export default function SignIn(){
+export default function SignUp(){
   return(
     <>
       <View>
-      <Text style={styles.text}>Cadastro</Text>
+        <Text style={styles.text}>Cadastro</Text>
         {/*Criação do formulário*/}
       </View>
       <View>
