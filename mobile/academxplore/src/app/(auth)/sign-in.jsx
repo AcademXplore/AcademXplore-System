@@ -1,4 +1,4 @@
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, View, Text} from "react-native";
 import { useAuth } from "@/src/contexts/auth-context";
 import React, { useState } from "react";
 import { InputLogin } from "@/src/components/InputLogin";
@@ -7,7 +7,7 @@ import { ButtonHome } from "@/src/components/ButtonHome";
 export default function SignIn(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const {onLogin, onRegister} = useAuth();
+  const {onLogin} = useAuth();
 
   const signIn = async () => {
     const result = await onLogin(email, password);
@@ -19,9 +19,12 @@ export default function SignIn(){
     <View style={styles.container}>
       <View style={styles.form}>
         <InputLogin icon="email-outline" onChangeText={setEmail} placeholder="Email" value={email}/>
-        <InputLogin icon="lock-outline" secureTextEntry onChangeText={setPassword} placeholder="Password" value={password}/>
+        <InputLogin icon="lock-outline" secureTextEntry onChangeText={setPassword} placeholder="Senha" value={password}/>
         <View style={styles.btn}>
-          <ButtonHome style href="/sign-up" outline={true} text="Sign In"/>
+          <ButtonHome href="/sign-up" outline={false} text="Entrar"/>
+        </View>
+        <View>
+          <Text style={styles.text}> Esqueci a senha </Text>
         </View>
       </View>
     </View>
@@ -37,17 +40,20 @@ const styles = StyleSheet.create({
     
   },
   text: {
-    fontFamily: 'Poppins-ExtraLight',
+    fontFamily: 'Poppins-Regular',
     color: 'white',
-    fontSize: 32,
-    textAlign: 'center',
+    fontSize: 15,
+    textAlign: 'center'
   },
   form: {
     gap: 10,
     width: '100%', 
-    justifyContent: 'flex-end'
+    flex: 2,
   },
   btn: {
+    justifyContent: 'flex-end',
     alignItems: 'center',
+    flex: 3,
+    flexDirection: 'column'
   }
 });
