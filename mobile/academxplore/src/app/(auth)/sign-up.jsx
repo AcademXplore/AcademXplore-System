@@ -1,10 +1,13 @@
-import {StyleSheet, View, Text} from "react-native";
+import {StyleSheet, View, Text, Alert} from "react-native";
 import { useAuth } from "@/src/contexts/auth-context";
 import React, { useState } from "react";
 import { InputLogin } from "@/src/components/InputLogin";
 import { ButtonHome } from "@/src/components/ButtonHome";
+import { Redirect, useRouter } from "expo-router";
+import { useSwitch } from "@/src/contexts/switch-context";
 
 export default function SignIn(){
+  const {setToggle} = useSwitch()
   const [nome, setNome] = useState('');
   const [CPF, setCPF] = useState('');
   const [email, setEmail] = useState('');
@@ -13,14 +16,25 @@ export default function SignIn(){
   const [matricula, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmarSenha, setConfirmarSenha] = useState('');
-  const {onLogin} = useAuth();
-
+  const {onRegister} = useAuth();
+  const router = useRouter();
+  
   const signUp = async () => {
-    const result = await onLogin(nome, CPF, email, instituicao, tipoPerfil, matricula, senha, confirmarSenha);
+    const result = await onRegister(nome, CPF, email, instituicao, tipoPerfil, matricula, senha, confirmarSenha);
+    Alert.alert("Parabéns!", result, [
+      {
+        text: 'Ok',
+        onPress: redirectLogin,
+        style: 'default',
+      }]);
     if (result && result.error){
-      alert(result.msg);
+      Alert.alert(result.msg.error, "Tente novamente!");
     }
   };
+  const redirectLogin = () => {
+    setToggle(true)
+    router.push('/sign-in')
+  }
   return(
     <View style={styles.container}>
       <View style={styles.form}>
@@ -32,8 +46,8 @@ export default function SignIn(){
         <InputLogin icon="clipboard-account-outline" onChangeText={setMatricula} placeholder="Matrícula" value={matricula}/>
         <InputLogin icon="lock-outline" secureTextEntry onChangeText={setSenha} placeholder="Senha" value={senha}/>
         <InputLogin icon="lock-outline" secureTextEntry onChangeText={setConfirmarSenha} placeholder="Confirmar Senha" value={confirmarSenha}/>
-        <View style={styles.btn}>
-          <ButtonHome href="/sign-in" outline={false} text="Cadastrar"/>
+        <View style={styles.containerBtn}>
+          <ButtonHome outline onPress={signUp} text="Cadastrar"/>
         </View>
       </View>
     </View>
@@ -59,10 +73,11 @@ const styles = StyleSheet.create({
     width: '100%', 
     flex: 2,
   },
-  btn: {
+  containerBtn: {
     justifyContent: 'flex-end',
-    alignItems: 'center',
     flex: 3,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    width: "50%",
+    alignSelf: 'center'
   }
 });

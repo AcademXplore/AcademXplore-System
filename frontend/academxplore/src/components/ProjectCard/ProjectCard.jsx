@@ -17,7 +17,6 @@ export function ProjectCard({ id, title, banner, tags, status, isLoading }) {
 
   const PERFIL = session?.user.perfil.toLowerCase()
 
-
   const checkarSeJaCandidatou = async () => {
     const API_URL = process.env.NEXT_PUBLIC_API_URL
     var myHeaders = new Headers();

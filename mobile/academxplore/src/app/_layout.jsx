@@ -1,8 +1,12 @@
 import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
-import { Slot, SplashScreen, Stack } from 'expo-router';
+import { Slot, SplashScreen } from 'expo-router';
+import { AuthContextProvider } from '@/src/contexts/auth-context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 
 export default function Layout() {
+  const queryClient = new QueryClient()
   const [fontsLoaded, fontError] = useFonts({
     'Poppins-Black': require('@/assets/fonts/Poppins/Poppins-Black.ttf'),
     'Poppins-BlackItalic': require('@/assets/fonts/Poppins/Poppins-BlackItalic.ttf'),
@@ -34,7 +38,13 @@ export default function Layout() {
     return null;
   }
 
-  return <Slot/>
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <Slot/>
+      </AuthContextProvider>
+    </QueryClientProvider>
+  )
 }
 
 

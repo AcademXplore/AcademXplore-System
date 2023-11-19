@@ -1,12 +1,15 @@
 import {createContext, useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import * as SecureStore from 'expo-secure-store'
+import { useRouter } from 'expo-router'
 
 const TOKEN_KEY = "my-jwt"
+const USER_ID = "my-id"
+const USER_PROFILE = "my-profile"
 const API_URL = process.env.EXPO_PUBLIC_API_URL
 const AuthContext = createContext({
-  onRegister: async () => {},
-  onLogin: async () => {},
+  onRegister: async (nome, cpf, email, instituicao, perfil, matricula, senha) => {},
+  onLogin: async (email, senha) => {},
   onLogout: async () => {},
   authState: {
     user: {
@@ -31,30 +34,36 @@ export function AuthContextProvider({children}){
     },
     authenticated: null
   })
-
   useEffect(() => {
-    const loadToken = async () => {
+    const login = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY)
-      console.log("stored:", token)
+      const userId = await SecureStore.getItemAsync(USER_ID)
+      const userProfile = await SecureStore.getItemAsync(USER_PROFILE)
 
       if(token){
         axios.defaults.headers.common.Authorization = token
         
         setAuthState({
           user: {
-            accessToken: token
+            accessToken: token,
+            id: userId,
+            perfil: userProfile
           },
           authenticated: true
         })
       }
     }
-  },[SecureStore, TOKEN_KEY, axios, setAuthState])
+    login()
+  },[SecureStore, TOKEN_KEY, axios, setAuthState, USER_ID, USER_PROFILE])
 
   const register = async (nome, cpf, email, instituicao, perfil, matricula, senha) => {
     try {
-      return await axios.post(`${API_URL}/usuario/cadastro`, {nome, cpf, email, instituicao, perfil, matricula, senha})
+      const res = await axios.post(`${API_URL}/usuario/cadastro`, {nome, cpf, email, instituicao, perfil, matricula, senha})
+      console.log("🚀 ~ file: auth-context.jsx: 34 ~ login ~ result: ", res.data)
+      return res.data
     } catch (error) {
-      return {error: true,  msg: {error}}
+      const msg = error.response.data
+      return {error: true,  msg: {error: msg}}
     }
   }
 
@@ -62,7 +71,7 @@ export function AuthContextProvider({children}){
     try {
       const result = await axios.post(`${API_URL}/auth/login`, {email, senha})
 
-      console.log("🚀 ~ file: auth-context.jsx: 34 ~ login ~ result: ", result)
+      console.log("🚀 ~ file: auth-context.jsx: 34 ~ login ~ result: ", result.data)
 
       setAuthState({
         user: result.data,
@@ -72,11 +81,19 @@ export function AuthContextProvider({children}){
       axios.defaults.headers.common.Authorization = result.data.accessToken
 
       await SecureStore.setItemAsync(TOKEN_KEY, result.data.accessToken)
+      await SecureStore.setItemAsync(USER_ID, result.data.id)
+      await SecureStore.setItemAsync(USER_PROFILE, result.data.perfil)
 
-      return result;
+      return result.data;
 
     } catch (error) {
-      return {error: true,  msg: {error}}
+      const msg = error.response.data
+      if(msg == "Bad credentials"){
+        return {error: true,  msg: {error: "Credenciais Inválidas"}}
+      }
+      else{
+        return {error: true,  msg: {error: msg}}
+      }
     }
   }
 
