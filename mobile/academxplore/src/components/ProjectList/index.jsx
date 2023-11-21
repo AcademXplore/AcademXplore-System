@@ -9,8 +9,8 @@ export function ProjectList(){
   const {data, isLoading} = useProjects();
   return(
     <View>
-      <SearchBarProject value={search} handleChange={setSearch}/>
-      <ScrollView>
+      <SearchBarProject value={search} handleChange={setSearch} />
+      <ScrollView style={{marginTop: 12}} showsVerticalScrollIndicator={false}>
         {
           isLoading ?
           <ProjectCard isLoading={isLoading}/>

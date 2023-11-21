@@ -9,8 +9,8 @@ import { Banner } from "../Banner";
 
 export function ProjectCard({ id, title, banner, tags, status, isLoading }){
   const {authState} = useAuth()
-  //
-  //
+  // const {setIsVisible, setProjeto, setIsLoading} = useDialogCandidatura()
+  // const {setIsOpen, setEquipes, setIsLoading: setIsLoadingEquipesCandidatura, setProjetoId} = useSelectEquipeCandidatura()
   const pathname = usePathname();
 
   const PERFIL = authState?.user.perfil
@@ -123,20 +123,25 @@ export function ProjectCard({ id, title, banner, tags, status, isLoading }){
                     backgroundColor: pressed ? "transparent" : '#206B6A',
                   },
                   styles.btnCandidacy,
-                ]} /*onPress={handleCandidatar}*/ children={({pressed}) => (
+                ]} onPress={() => handleCandidatar()} children={({pressed}) => (
                   <Text style={[styles.textBtnCandidacy, {color: pressed ? "#206B6A" : "#fff",}]}>Candidatar-se</Text>
                 )}/>
                 }
             </>
           : 
-            <>
-              {PERFIL == "PROFESSOR" && status == "Ativo" && <IconCandidaturas onPress={() => openDialogCandidaturas()}/>}
-              <Link style={styles.btnAbrirProjeto} href={`/my-projects/${id}`} asChild>
-                <Pressable>
-                  <Text>Abrir Projeto</Text>
-                </Pressable>
-              </Link>
-            </>   
+          <>
+            {PERFIL == "PROFESSOR" && status == "Ativo" && <IconCandidaturas onPress={() => openDialogCandidaturas()}/>}
+            <Link style={({pressed}) => [
+                {
+                  backgroundColor: pressed ? "transparent" : '#206B6A',
+                },
+                styles.btnCandidacy,
+              ]} href={`/my-projects/${id}`} asChild>
+              <Pressable>
+                <Text style={[styles.textBtnCandidacy, {color: "#fff",}]}>Abrir Projeto</Text>
+              </Pressable>
+            </Link>
+          </>    
           }
         </View>
       </View>
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    marginTop: 12,
+    marginBottom: 12,
     borderColor: "gray",
     flexDirection: 'column',
     alignItems: 'center',

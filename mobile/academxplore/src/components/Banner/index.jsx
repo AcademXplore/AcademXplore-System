@@ -9,6 +9,9 @@ export function Banner({ titulo, banner, active, isLoading }) {
         contentFit="fill"
         alt={titulo}
       />
+      <View style={styles.containerTitulo}>
+        <Text style={styles.titulo}>{titulo}</Text>
+      </View>
     </View>
   )
 }
@@ -18,11 +21,27 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "100%",
     overflow: 'hidden',
-    height: 180
+    height: 180,
+    position: 'relative'
   },
   image: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#0553',
   },
+  containerTitulo: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+    width: '100%',
+    height: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    padding: 16,
+    flexWrap: 'wrap'
+  },
+  titulo: {
+    color: '#fff',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 24,
+    
+  }
 })
