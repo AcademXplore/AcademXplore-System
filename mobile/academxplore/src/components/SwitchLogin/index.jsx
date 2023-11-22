@@ -10,12 +10,12 @@ export function SwitchLogin(){
     <View style={styles.containerSwitch}>
       <Link href='/sign-in' style={[styles.switch, {backgroundColor: toggle ? "#00B8B5" : "transparent"}]} asChild>
         <Pressable onPress={() => setToggle(true)} >
-          <Text style={styles.textSwitch}>Login</Text>
+          <Text style={[styles.textSwitch, {color: toggle ? "#024443" : "#fff"}]}>Login</Text>
         </Pressable>
       </Link>
       <Link href='/sign-up' style={[styles.switch, {backgroundColor: !toggle ? "#00B8B5" : "transparent"}]} asChild>
         <Pressable onPress={() => setToggle(false)} >
-          <Text style={styles.textSwitch}>Criar Conta</Text>
+          <Text style={[styles.textSwitch, {color: !toggle ? "#024443" : "#fff"}]}>Criar Conta</Text>
         </Pressable>
       </Link>
     </View>
