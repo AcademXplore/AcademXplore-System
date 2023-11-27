@@ -24,7 +24,7 @@ export function DialogCandidaturas(){
             </div>
             {isLoading && <Loading/>}
             <div className="d-flex flex-column overflow-y-auto">
-              {projeto?.map((candidato, i) => <CandidaturaCard key={candidato.id} id={candidato.id} nome={candidato.aluno.nome} light={i % 2 == 0}/>)}
+              {projeto?.map((candidato, i) => <CandidaturaCard key={candidato.id} id={candidato.id} nome={candidato.aluno.nome} foto={candidato.aluno.foto} userId={candidato.aluno.id} light={i % 2 == 0}/>)}
             </div>
               
           </div>

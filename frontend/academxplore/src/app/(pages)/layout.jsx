@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
           <section className="min-vh-100 d-flex flex-column position-relative" style={{backgroundColor: "#F3F3F3"}}>
             <Header />
             {children}
-            {pathname != "/notifications" && <Footer/>}
+            <br/>
+            {/* {pathname != "/notifications" && <Footer/>} */}
           </section>
         </QueryClientProvider>
       </NavContextProvider>

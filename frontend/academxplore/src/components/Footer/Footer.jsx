@@ -13,7 +13,7 @@ export function Footer(){
   }
   
   return(
-    <footer className="vw-100 bg-light position-absolute bottom-0 d-flex flex-column align-items-center py-3 gap-3">
+    <footer className="vw-100 bg-light position-absolute bottom- d-flex flex-column align-items-center py-3 gap-3">
       <div style={{height: "2px", width: "95%", backgroundColor: "#206B6A"}}></div>
       <div className="d-flex align-items-center h-100">
         <nav>
