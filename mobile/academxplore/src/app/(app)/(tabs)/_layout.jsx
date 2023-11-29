@@ -19,11 +19,11 @@ export default function AppLayout() {
         }
       }
     >
-      <Tabs.Screen name='index' options={{title: "Linha do Tempo", headerLeft: () => <Button title='sign out' onPress={onLogout}/>, tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="home-outline" size={size} color={color} />}}/>
+      <Tabs.Screen name='index' options={{title: "Linha do Tempo", tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="home-outline" size={size} color={color} />}}/>
       <Tabs.Screen name='my-projects' options={{title: "Meus Projetos", tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="google-analytics" size={size} color={color} />}}/>
       <Tabs.Screen name='candidacy' options={{title: "Candidaturas", tabBarItemStyle: {display: authState.user.perfil == 'ALUNO' ? 'flex' : 'none'}, tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="account-supervisor-outline" size={size} color={color} />}}/>
       <Tabs.Screen name='notifications' options={{title: "Notificações", tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="bell-outline" size={size} color={color} />}}/>
-      <Tabs.Screen name='profile' options={{title: "Perfil", tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="account-circle-outline" size={size} color={color}/>}}/>
+      <Tabs.Screen name='profile' options={{title: "Perfil", tabBarIcon: ({color, size}) => <MaterialCommunityIcons name="account-circle-outline" size={size} color={color}/>, headerRight: () => <Button title='sign out' onPress={onLogout}/>, headerRightContainerStyle: {paddingRight: 20}}}/>
     </Tabs>
   );
 }

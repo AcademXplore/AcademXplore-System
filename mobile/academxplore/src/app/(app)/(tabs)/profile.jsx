@@ -1,9 +1,10 @@
 import { useAuth } from "@/src/contexts/auth-context";
 import { useProfile } from "@/src/hooks/useProfile";
 import { useQuantidadeProjetos } from "@/src/hooks/useQuantidadeProjetos";
+import { Image } from "expo-image";
 import { Tabs } from "expo-router";
 import { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 
 export default function Profile(){
   const {authState} = useAuth()
@@ -24,7 +25,7 @@ export default function Profile(){
     <ScrollView style={{flex: 1, backgroundColor: '#f3f3f3'}}>
       <View>
         <View>
-          {/* <Image style={{width: '100%', height: '100%'}} source={data?.banner} contentFit="fill" /> */}
+          <Image style={{width: '100%', height: '100%'}} source={data?.banner} contentFit="fill" />
         </View>
         <View>
           <View></View>
