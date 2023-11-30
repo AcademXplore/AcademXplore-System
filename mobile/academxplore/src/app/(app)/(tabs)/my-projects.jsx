@@ -1,11 +1,22 @@
-import { Tabs } from "expo-router";
-import { Text, View } from "react-native";
+import { SearchProjectsContextProvider } from "@/src/contexts/search-projects-context";
+import { Text, View, StyleSheet } from "react-native";
+import { MyProjectsList } from "@/src/components/MyProjects";
 
 export default function MyProjects(){
   return(
-    <View style={{flex: 1, backgroundColor: 'gray'}}>
-      
-      <Text style={{color: "#fff"}}>MyProjects</Text>
-    </View>
+    <SearchProjectsContextProvider>
+      <View style={styles.container}>
+        <MyProjectsList/>
+      </View>
+    </SearchProjectsContextProvider>
   )
 }
+
+const styles =StyleSheet.create({
+  container: {
+    flex: 1, 
+    backgroundColor: '#F3F3F3',
+    paddingHorizontal: 24,
+    paddingBottom: 60
+  }
+})

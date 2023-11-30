@@ -7,8 +7,8 @@ import { useSearchProjects } from "@/hooks/useSearchProjects";
 
 export function MyProjectsList(){
   const {search, setSearch} = useSearchProjects()
-  const {data: session} = useSession()
   const {data, isLoading} = useMyProjects();
+  const {data: session} = useSession()
   const PERFIL = session?.user.perfil.toLowerCase()
 
   return(
